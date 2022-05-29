@@ -14,6 +14,7 @@ namespace CodeBase.Infrastracture.States
             allStates = new Dictionary<Type, IState>()
             {
                 [typeof(BootstrapState)] = new BootstrapState(this),
+                [typeof(LoadLevelState)] = new LoadLevelState(this),
                 [typeof(GameLoopState)] = new GameLoopState(this),
             };
         }

@@ -17,7 +17,7 @@ namespace CodeBase.Infrastracture.States
             
             
             //start gameloop
-            _gameStateMachine.Enter<GameLoopState>();
+            _gameStateMachine.Enter<LoadLevelState>();
         }
 
         public void Exit()

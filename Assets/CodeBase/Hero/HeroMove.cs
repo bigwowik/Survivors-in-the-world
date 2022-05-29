@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using Zenject;
 
 namespace CodeBase.Hero
 {
@@ -12,12 +13,20 @@ namespace CodeBase.Hero
         private Camera _camera;
         private Vector2 movementVector;
 
+
+        [Inject]
+        private void Construct(IInputService inputService)
+        {
+            _inputService = inputService;
+        }
+        
+        
         private void Awake()
         {
             GetAllComponents();
             
             
-            _inputService = AllServices.Container.Single<IInputService>();
+            //_inputService = AllServices.Container.Single<IInputService>();
         }
 
         private void GetAllComponents()
@@ -40,7 +49,7 @@ namespace CodeBase.Hero
             movementVector = Vector2.zero;
 
 
-            if (_inputService.Axis.sqrMagnitude > 0) ;// Constants.Epsilon)
+            if (_inputService.Axis.sqrMagnitude > 0)// Constants.Epsilon)
             {
                 movementVector = _inputService.Axis;
                
