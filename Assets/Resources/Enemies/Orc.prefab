@@ -13,7 +13,9 @@ GameObject:
   - component: {fileID: -1210694501806622368}
   - component: {fileID: 7164353844045658921}
   - component: {fileID: 6980473569440722503}
-  m_Layer: 0
+  - component: {fileID: 5353398889164301161}
+  - component: {fileID: 2449422935170331771}
+  m_Layer: 7
   m_Name: Orc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,6 +103,32 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.85, y: 1}
   m_Direction: 0
+--- !u!114 &5353398889164301161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5720277353491606258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16ee24eb833143c68e65cf85087d8500, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2449422935170331771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5720277353491606258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ae458ec91e44dd481642dd9961feb30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxHp: 10
+  CurrentHp: 0
 --- !u!1 &5720277354388581608
 GameObject:
   m_ObjectHideFlags: 0
@@ -113,7 +141,7 @@ GameObject:
   - component: {fileID: 5720277354388581610}
   - component: {fileID: 5720277354388581613}
   - component: {fileID: 2127425475502471821}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -227,7 +255,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5720277354642749359}
   - component: {fileID: 5720277354642749358}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}

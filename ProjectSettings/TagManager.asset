@@ -5,15 +5,17 @@ TagManager:
   serializedVersion: 2
   tags:
   - SpawnMarkers
+  - ship
+  - asteroid
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
-  - 
-  - 
+  - Projectile
+  - Enemy
   - 
   - 
   - 
@@ -41,6 +43,9 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Projectile
+    uniqueID: 3178486465
     locked: 0
   - name: Character
     uniqueID: 555206985

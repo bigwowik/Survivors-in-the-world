@@ -8,12 +8,12 @@ namespace CodeBase.Infrastracture
     {
         public override void InstallBindings()
         {
-            BindEnemyFactory();
             BindGame();
             BindGameStateMachine();
             BindCoroutineRunner();
             BindInputService();
             BindSceneLoader();
+            BindEnemyFactory();
         }
 
         private void BindCoroutineRunner()
@@ -40,7 +40,6 @@ namespace CodeBase.Infrastracture
 
         private void BindSceneLoader()
         {
-            //SceneLoader sceneLoader = new SceneLoader(gameBootstraper);
             Container
                 .Bind<SceneLoader>()
                 .AsSingle();
@@ -49,8 +48,8 @@ namespace CodeBase.Infrastracture
         private void BindEnemyFactory()
         {
             Container
-                .Bind<IFactory>()
-                .To<Factory>()
+                .Bind<IGameFactory>()
+                .To<GameFactory>()
                 .AsSingle();
         }
 

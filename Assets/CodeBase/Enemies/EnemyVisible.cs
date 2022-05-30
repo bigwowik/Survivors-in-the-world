@@ -7,11 +7,11 @@ namespace CodeBase.Enemies
     {
         private void OnBecameVisible()
         {
-            Debug.Log($"{name} OnBecameVisible");
+            //Debug.Log($"{name} OnBecameVisible");
         }
         private void OnBecameInvisible()
         {
-            Debug.Log($"{name} OnBecameInvisible");
+            //Debug.Log($"{name} OnBecameInvisible");
         }
     }
 }

@@ -255,6 +255,25 @@ public static class Helper
             return false;
         }
     }
+    
+    public static bool GetArrayOfTypeByGameObjects<T,TBase>(List<TBase> gameObjectsList, out List<T> componentsList) where TBase : MonoBehaviour
+    {
+        componentsList = new List<T>();
+        try
+        {
+            foreach (var go in gameObjectsList)
+            {
+                T component = go.GetComponent<T>();
+                componentsList.Add(component);
+            }
+
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
 
     public static bool RandomPointOnNavmesh(Vector3 startPoint, Vector3 endPoint, float range, out Vector3 result,
         float minRange = 0f)

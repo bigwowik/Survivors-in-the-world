@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 201902190}
   - component: {fileID: 201902189}
   - component: {fileID: 1930601810852292057}
-  m_Layer: 0
+  - component: {fileID: -1343038997848646283}
+  m_Layer: 3
   m_Name: Hero
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -102,6 +103,19 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.85, y: 1}
   m_Direction: 0
+--- !u!114 &-1343038997848646283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5272552499143439441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a153dbda77584c42917c439f07317168, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Weapon: {fileID: 11400000, guid: befe4809ad5f32d4ebae025709595c29, type: 2}
 --- !u!1 &5272552500058403403
 GameObject:
   m_ObjectHideFlags: 0
@@ -113,7 +127,7 @@ GameObject:
   - component: {fileID: 5272552500058403400}
   - component: {fileID: 5272552500058403401}
   - component: {fileID: 5272552500058403406}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -215,7 +229,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5272552500311877900}
   - component: {fileID: 5272552500311877901}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
