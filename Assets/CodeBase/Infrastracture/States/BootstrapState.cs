@@ -13,10 +13,9 @@ namespace CodeBase.Infrastracture.States
 
         public void Enter()
         {
-            AllServices.Container.Register<IInputService>(new UnityInputService());
+            //AllServices.Container.Register<IInputService>(new UnityInputService());
             
             
-            //start gameloop
             _gameStateMachine.Enter<LoadLevelState>();
         }
 

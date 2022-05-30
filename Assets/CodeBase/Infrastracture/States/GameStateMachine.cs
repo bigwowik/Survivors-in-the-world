@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine.UIElements;
+using System.ComponentModel;
+using Zenject;
 
 namespace CodeBase.Infrastracture.States
 {
@@ -9,12 +10,12 @@ namespace CodeBase.Infrastracture.States
         private IState _activeState;
         private Dictionary<Type, IState> allStates;
 
-        public GameStateMachine()
+        public GameStateMachine(SceneLoader sceneLoader, IEnemyFactory enemyFactory)
         {
             allStates = new Dictionary<Type, IState>()
             {
                 [typeof(BootstrapState)] = new BootstrapState(this),
-                [typeof(LoadLevelState)] = new LoadLevelState(this),
+                [typeof(LoadLevelState)] = new LoadLevelState(this,sceneLoader, enemyFactory),
                 [typeof(GameLoopState)] = new GameLoopState(this),
             };
         }

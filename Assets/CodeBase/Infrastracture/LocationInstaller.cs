@@ -17,6 +17,11 @@ namespace CodeBase.Infrastracture
 
             BindHero();
 
+            BindEnemyFactory();
+        }
+
+        private void BindEnemyFactory()
+        {
             Container
                 .Bind<IEnemyFactory>()
                 .To<EnemyFactory>()
@@ -46,14 +51,14 @@ namespace CodeBase.Infrastracture
         {
             Debug.Log("Initialize");
             
-            IEnemyFactory enemyFactory = Container.Resolve<IEnemyFactory>();
-            
-            enemyFactory.Load();
-
-            foreach (var enemyMarker in EnemyMarkers)
-            {
-                enemyFactory.Create(enemyMarker.EnemyType, enemyMarker.transform.position);
-            }
+            // IEnemyFactory enemyFactory = Container.Resolve<IEnemyFactory>();
+            //
+            // enemyFactory.Load();
+            //
+            // foreach (var enemyMarker in EnemyMarkers)
+            // {
+            //     enemyFactory.Create(enemyMarker.EnemyType, enemyMarker.transform.position);
+            // }
             
         }
     }

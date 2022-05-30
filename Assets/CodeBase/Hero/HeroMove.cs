@@ -17,6 +17,7 @@ namespace CodeBase.Hero
         [Inject]
         private void Construct(IInputService inputService)
         {
+            Debug.Log($"Construct Hero. inputService - {inputService}");
             _inputService = inputService;
         }
         

@@ -4,11 +4,12 @@ namespace CodeBase.Infrastracture
 {
     public class Game
     {
-        public readonly GameStateMachine gameStateMachine;
+        public readonly IGameStateMachine gameStateMachine;
 
 
-        public Game(GameStateMachine gameStateMachine)
+        public Game(IGameStateMachine gameStateMachine)
         {
+            
             this.gameStateMachine = gameStateMachine;
         }
     }
