@@ -10,12 +10,12 @@ namespace CodeBase.Infrastracture.States
         private IState _activeState;
         private Dictionary<Type, IState> allStates;
 
-        public GameStateMachine(SceneLoader sceneLoader, IEnemyFactory enemyFactory)
+        public GameStateMachine(SceneLoader sceneLoader, IFactory factory)
         {
             allStates = new Dictionary<Type, IState>()
             {
                 [typeof(BootstrapState)] = new BootstrapState(this),
-                [typeof(LoadLevelState)] = new LoadLevelState(this,sceneLoader, enemyFactory),
+                [typeof(LoadLevelState)] = new LoadLevelState(this,sceneLoader, factory),
                 [typeof(GameLoopState)] = new GameLoopState(this),
             };
         }

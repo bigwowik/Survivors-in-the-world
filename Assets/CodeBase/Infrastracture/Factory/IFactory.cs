@@ -3,9 +3,10 @@ using UnityEngine;
 
 namespace CodeBase.Infrastracture
 {
-    public interface IEnemyFactory
+    public interface IFactory
     {
-        void Load();
+        void LoadEnemies();
         void Create(EnemyType enemyType, Vector2 at);
+        void CreateHero(Vector2 at);
     }
 }

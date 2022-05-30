@@ -22,7 +22,7 @@ namespace CodeBase.Infrastracture
 
         private IEnumerator LoadLevel(string nextScene, Action onLoaded = null)
         {
-            Debug.Log($"[SceneLoader] Start Load Scene: {nextScene}");
+            Debug.Log($"[SceneLoader] Start LoadEnemies Scene: {nextScene}");
             
             if (SceneManager.GetActiveScene().name == nextScene)
             {

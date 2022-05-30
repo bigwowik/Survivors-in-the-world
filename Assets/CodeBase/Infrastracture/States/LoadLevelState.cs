@@ -13,13 +13,13 @@ namespace CodeBase.Infrastracture.States
 
         private readonly IGameStateMachine _gameStateMachine;
         private SceneLoader _sceneLoader;
-        private IEnemyFactory _enemyFactory;
+        private IFactory _factory;
 
-        public LoadLevelState(IGameStateMachine gameStateMachine, SceneLoader sceneLoader, IEnemyFactory enemyFactory)
+        public LoadLevelState(IGameStateMachine gameStateMachine, SceneLoader sceneLoader, IFactory factory)
         {
             _gameStateMachine = gameStateMachine;
             _sceneLoader = sceneLoader;
-            _enemyFactory = enemyFactory;
+            _factory = factory;
         }
 
         public void Enter()
@@ -33,7 +33,9 @@ namespace CodeBase.Infrastracture.States
 
         void OnLoaded()
         {
+            Debug.Log("On loaded");
             //SpawnHero
+            CreateHero();
 
 
             //spawn
@@ -46,17 +48,24 @@ namespace CodeBase.Infrastracture.States
             _gameStateMachine.Enter<GameLoopState>();
         }
 
+        private void CreateHero()
+        {
+            Vector2 heroStartPoint = Vector2.zero;
+            _factory.CreateHero(heroStartPoint);
+        }
+
+
         private void SpawnEnemies()
         {
             var spawnPoints = GameObject.FindGameObjectsWithTag("SpawnMarkers").ToList();
 
             if (Helper.GetArrayOfTypeByGameObjects<EnemyMarker>(spawnPoints, out List<EnemyMarker> enemyMarkers))
             {
-                _enemyFactory.Load();
+                _factory.LoadEnemies();
 
                 foreach (var enemyMarker in enemyMarkers)
                 {
-                    _enemyFactory.Create(enemyMarker.EnemyType, enemyMarker.transform.position);
+                    _factory.Create(enemyMarker.EnemyType, enemyMarker.transform.position);
                 }
             }
         }

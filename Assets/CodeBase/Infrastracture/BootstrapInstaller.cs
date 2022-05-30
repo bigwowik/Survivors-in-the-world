@@ -49,8 +49,8 @@ namespace CodeBase.Infrastracture
         private void BindEnemyFactory()
         {
             Container
-                .Bind<IEnemyFactory>()
-                .To<EnemyFactory>()
+                .Bind<IFactory>()
+                .To<Factory>()
                 .AsSingle();
         }
 

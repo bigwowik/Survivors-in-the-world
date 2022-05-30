@@ -91,7 +91,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5720277353491606258, guid: 4843c6294db27f84bb07ff202205e1ea, type: 3}
       propertyPath: m_Name
-      value: Orc Variant 2
+      value: Smart Orc
       objectReference: {fileID: 0}
     - target: {fileID: 5720277353491606260, guid: 4843c6294db27f84bb07ff202205e1ea, type: 3}
       propertyPath: m_RootOrder

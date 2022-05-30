@@ -45,20 +45,20 @@ namespace CodeBase.Hero
             Debug.Log("Destroy hero");
         }
 
-        private void Update()
+        private void FixedUpdate()
+        {
+            UpdateMoving();
+        }
+
+        private void UpdateMoving()
         {
             movementVector = Vector2.zero;
-
-
-            if (_inputService.Axis.sqrMagnitude > 0)// Constants.Epsilon)
+            if (_inputService.Axis.sqrMagnitude > 0) // Constants.Epsilon)
             {
                 movementVector = _inputService.Axis;
-               
                 movementVector.Normalize();
-
             }
-            
-            CharacterRb.MovePosition(CharacterRb.position + movementVector * (MovementSpeed * Time.deltaTime));
+            CharacterRb.MovePosition(CharacterRb.position + movementVector * (MovementSpeed * Time.fixedDeltaTime));
         }
     }
 }
