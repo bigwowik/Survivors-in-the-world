@@ -38,7 +38,10 @@ namespace CodeBase.Enemies
         private void SetDestinationForAgent()
         {
             if (_heroTransform == null)
+            {
+                _rb.velocity = Vector2.zero;
                 return;
+            }
 
             if (HeroNotReached())
                 _rb.velocity = (_heroTransform.position - transform.position).normalized * _speed * Time.fixedDeltaTime;

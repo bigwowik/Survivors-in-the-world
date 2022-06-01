@@ -1,5 +1,6 @@
 ﻿using CodeBase.Logic;
 using UnityEngine;
+using System;
 
 namespace CodeBase.UI.Elements
 {
@@ -16,8 +17,17 @@ namespace CodeBase.UI.Elements
             _Health.HealthChanged += UpdateHpBar;
         }
 
-        private void OnDestroy() => 
-            _Health.HealthChanged -= UpdateHpBar;
+        private void OnDisable()
+        {
+            try
+            {
+                _Health.HealthChanged -= UpdateHpBar;
+            }
+            catch (Exception ex)
+            {
+                Debug.LogWarning($"Unsubscribe exception: {ex}");
+            }
+        }
 
         private void UpdateHpBar()
         {

@@ -42,7 +42,7 @@ namespace CodeBase.Enemies
 
         public IEnumerator SpawnEnemyWaves() 
         {
-            while (true)
+            while (SpawnCondition())
             {
                 SpawnEnemies();
                 yield return new WaitForSeconds(_levelStaticData.StartEnemySpawnRepeatTime);
@@ -54,6 +54,11 @@ namespace CodeBase.Enemies
             Vector2 position = (Vector2) _heroMove.transform.position + Helper.RandomInCircle(_minRange, _maxRange);
             _gameFactory.Create(EnemyType.Ork, position);
             Debug.Log("Enemy from wave was spawned");
+        }
+
+        private bool SpawnCondition()
+        {
+            return _heroMove != null;
         }
     }
 }
