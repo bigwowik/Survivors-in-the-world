@@ -284,7 +284,7 @@ public static class Helper
         {
             Vector3 randomPoint = startPoint +
                                   vectorDirectionLineSpawn.normalized * vectorDirectionLineSpawn.magnitude *
-                                  (Random.Range(0, 1f)) + (Vector3) RandomInCircle(range, minRange);
+                                  (Random.Range(0, 1f)) + (Vector3) RandomInCircle(minRange, range);
             if (IsPointOnNavMesh(out result, randomPoint)) return true;
         }
 
@@ -296,7 +296,7 @@ public static class Helper
     {
         for (int i = 0; i < 50; i++)
         {
-            Vector3 randomPoint = point + (Vector3) RandomInCircle(range, minRange);
+            Vector3 randomPoint = point + (Vector3) RandomInCircle(minRange, range);
             if (IsPointOnNavMesh(out result, randomPoint)) return true;
         }
 
@@ -317,7 +317,7 @@ public static class Helper
         return false;
     }
 
-    public static Vector2 RandomInCircle(float maxRange, float minRange)
+    public static Vector2 RandomInCircle(float minRange, float maxRange)
     {
         var x = Random.Range(minRange, maxRange);
         var y = Random.Range(minRange, maxRange);

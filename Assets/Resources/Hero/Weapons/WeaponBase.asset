@@ -15,4 +15,4 @@ MonoBehaviour:
   ProjectileVelocity: 10
   Attack:
     Cooldown: 1
-    AttackValue: 10
+    AttackValue: 5

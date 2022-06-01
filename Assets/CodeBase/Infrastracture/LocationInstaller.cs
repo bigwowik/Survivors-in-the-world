@@ -1,4 +1,5 @@
 using System.Collections;
+using CodeBase.Enemies;
 using CodeBase.Hero;
 using UnityEngine;
 using Zenject;
@@ -12,10 +13,19 @@ namespace CodeBase.Infrastracture
 
         public override void InstallBindings()
         {
+            Debug.Log("LocationInstaller - InstallBindings");
             BindInstallerInterfaces();
 
             //BindHero();
 
+            BindEnemySpawner();
+        }
+
+        private void BindEnemySpawner()
+        {
+            Container
+                .Bind<EnemySpawner>()
+                .AsSingle();
         }
 
         private void BindInstallerInterfaces()

@@ -1,5 +1,7 @@
-﻿using CodeBase.Hero;
+﻿using CodeBase.Enemies;
+using CodeBase.Hero;
 using CodeBase.Infrastracture.States;
+using CodeBase.StaticData;
 using Zenject;
 
 namespace CodeBase.Infrastracture
@@ -14,11 +16,21 @@ namespace CodeBase.Infrastracture
             BindInputService();
             BindSceneLoader();
             BindEnemyFactory();
+            BindStaticDataService();
+        }
+
+        private void BindStaticDataService()
+        {
+            Container
+                .Bind<IStaticDataService>()
+                .To<StaticDataService>()
+                .AsSingle();
         }
 
         private void BindCoroutineRunner()
         {
-            Container.Bind<ICoroutineRunner>()
+            Container
+                .Bind<ICoroutineRunner>()
                 .FromInstance(this)
                 .AsSingle();
         }
@@ -60,5 +72,7 @@ namespace CodeBase.Infrastracture
                 .To<UnityInputService>()
                 .AsSingle();
         }
+        
+        
     }
 }

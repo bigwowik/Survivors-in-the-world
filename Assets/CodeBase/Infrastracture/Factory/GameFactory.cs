@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using CodeBase.Enemies;
 using CodeBase.Hero;
 using CodeBase.Hero.Weapon;
+using CodeBase.Infrastracture.AssetsManagment;
+using CodeBase.Logic;
 using CodeBase.Stats;
+using CodeBase.UI.Elements;
 using UnityEngine;
 using Zenject;
 using Object = UnityEngine.Object;
@@ -14,17 +17,12 @@ namespace CodeBase.Infrastracture
     {
         private readonly DiContainer _diContainer;
 
-        private const string Hero = "Hero/Hero";
-
-        private const string EnemyOrc = "Enemies/Orc";
-        private const string EnemySmartOrk = "Enemies/Smart Orc";
-        private const string HeroWeaponsProjectile = "Hero/Weapons/Projectile";
-
-
         private GameObject _enemyPrefabOrk;
         private GameObject _enemyPrefabSmartOrk;
 
         public List<EnemyAttacker> ActiveEnemies = new List<EnemyAttacker>();
+        private HeroMove heroMove;
+        private GameObject hudInstance;
 
 
         public GameFactory(DiContainer diContainer)
@@ -34,8 +32,8 @@ namespace CodeBase.Infrastracture
 
         public void LoadEnemies()
         {
-            _enemyPrefabOrk = (GameObject) Resources.Load(EnemyOrc);
-            _enemyPrefabSmartOrk = (GameObject) Resources.Load(EnemySmartOrk);
+            _enemyPrefabOrk = (GameObject) Resources.Load(AssetPath.EnemyOrc);
+            _enemyPrefabSmartOrk = (GameObject) Resources.Load(AssetPath.EnemySmartOrk);
 
 
         }
@@ -76,7 +74,7 @@ namespace CodeBase.Infrastracture
 
         public void CreateProjectile(GameObject attacker, Vector2 at, Transform directionTo, float projectileVelocity, Attack attack)
         {
-            Projectile projectilePrefab = Resources.Load<Projectile>(HeroWeaponsProjectile);
+            Projectile projectilePrefab = Resources.Load<Projectile>(AssetPath.HeroWeaponsProjectile);
             
             Projectile projectileInstance = _diContainer
                 .InstantiatePrefabForComponent<Projectile>(projectilePrefab, at, Quaternion.identity, null);
@@ -90,16 +88,43 @@ namespace CodeBase.Infrastracture
 
         public void CreateHero(Vector2 at)
         {
-            GameObject heroPrefab = (GameObject) Resources.Load(Hero);
+            GameObject heroPrefab = (GameObject) Resources.Load(AssetPath.Hero);
 
 
-            HeroMove heroMove = _diContainer
+            heroMove = _diContainer
                 .InstantiatePrefabForComponent<HeroMove>(heroPrefab, at, Quaternion.identity, null);
+
+            heroMove.GetComponent<HeroHealth>().Max = 10; //TODO in static data
 
             _diContainer
                 .Bind<HeroMove>()
                 .FromInstance(heroMove)
                 .AsSingle();
         }
+
+        public void CreateHud()
+        {
+            GameObject hudPrefab = (GameObject) Resources.Load(AssetPath.UIHud);
+            
+            hudInstance = _diContainer
+                .InstantiatePrefab(hudPrefab);
+            
+            hudInstance.GetComponentInChildren<ActorUI>().Construct(heroMove.GetComponent<IHealth>());
+        }
+
+        public EnemySpawner CreateEnemySpawner()
+        {
+            EnemySpawner enemyFactoryPrefab = Resources.Load<EnemySpawner>(AssetPath.EnemySpawner);
+            
+            EnemySpawner enemySpawnerInstance = _diContainer
+                .InstantiatePrefab(enemyFactoryPrefab).GetComponent<EnemySpawner>();
+            
+            enemySpawnerInstance.StartSpawnEnemy();
+            
+            return enemySpawnerInstance;
+
+        }
+        
+        
     }
 }

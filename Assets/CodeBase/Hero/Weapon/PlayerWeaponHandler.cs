@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using CodeBase.Enemies;
 using CodeBase.Infrastracture;
@@ -15,19 +14,23 @@ namespace CodeBase.Hero.Weapon
         public float PlayerAttackRadius = 15f;
         
         private IGameFactory _gameFactory;
-        private float timer = 0f;
+        
         private List<EnemyAttacker> _activeEnemiesList;
+        private TimerUpdater _timerUpdater;
 
 
         [Inject]
         private void Construct(IGameFactory gameFactory) => _gameFactory = gameFactory;
 
 
+        private void Start() => 
+            _timerUpdater = new TimerUpdater();
+
         public void Update()
         {
-            TimerUpdateWithAction(Weapon.Attack.Cooldown,
+            _timerUpdater.TimerUpdateWithAction(Weapon.Attack.Cooldown,
                 TryFindEnemy(out var enemy),
-                () =>  Weapon.Shoot(gameObject, _gameFactory, this, enemy.transform));
+                () =>  Weapon.Shoot(gameObject, _gameFactory, this, enemy.transform), Time.deltaTime);
         }
 
         private bool TryFindEnemy(out EnemyAttacker enemy)
@@ -42,17 +45,19 @@ namespace CodeBase.Hero.Weapon
             return TryFindNearEnemyFromList(ref enemy);
         }
 
-        private void GetActiveEnemiesList()
-        {
+        private void GetActiveEnemiesList() => 
             _activeEnemiesList ??= _gameFactory.GetActiveEnemiesList();
-        }
 
         private bool TryFindNearEnemyFromList(ref EnemyAttacker enemy)
         {
             if (Helper.GetArrayOfTypeByGameObjects<Transform, EnemyAttacker>(_activeEnemiesList, out var transformList))
             {
                 var nearEnemy = Helper.GetNearTransform(transform, transformList.ToArray(), PlayerAttackRadius);
-                enemy = nearEnemy.GetComponent<EnemyAttacker>();
+                
+                if(nearEnemy!= null)
+                    enemy = nearEnemy.GetComponent<EnemyAttacker>();
+                else
+                    return false;
 
                 return true;
             }
@@ -60,18 +65,6 @@ namespace CodeBase.Hero.Weapon
                 return false;
         }
 
-        private void TimerUpdateWithAction(float timerCooldown, bool check, Action timerAction)
-        {
-            if (timer > timerCooldown)
-            {
-                if (check)
-                {
-                    timer = 0;
-                    timerAction?.Invoke();
-                }
-            }
-            else
-                timer += Time.deltaTime;
-        }
+        
     }
 }

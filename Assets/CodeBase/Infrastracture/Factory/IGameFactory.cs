@@ -13,5 +13,7 @@ namespace CodeBase.Infrastracture
         void CreateHero(Vector2 at);
         List<EnemyAttacker> GetActiveEnemiesList();
         void CreateProjectile(GameObject attacker, Vector2 at, Transform directionTo, float projectileVelocity, Attack attack); //TODO only creating
+        void CreateHud();
+        EnemySpawner CreateEnemySpawner();
     }
 }
