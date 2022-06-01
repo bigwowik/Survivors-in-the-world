@@ -38,25 +38,23 @@ namespace CodeBase.Infrastracture
 
         }
 
-        public void Create(EnemyType enemyType, Vector2 at)
+        public void CreateEnemy(EnemyType enemyType, Vector2 at)
         {
-            EnemyAttacker enemyInstance = null;
-            switch (enemyType)
-            {
-                case EnemyType.Ork:
-                    enemyInstance = _diContainer.InstantiatePrefab(_enemyPrefabOrk, at, Quaternion.identity, null)
-                        .GetComponent<EnemyAttacker>();
-                    break;
-                case EnemyType.SmartOrk:
-                    enemyInstance = _diContainer.InstantiatePrefab(_enemyPrefabSmartOrk, at, Quaternion.identity, null)
-                        .GetComponent<EnemyAttacker>();
-                    break;
-                default:
-                    break;
-            }
+            GameObject enemyPrefab = _enemyPrefabOrk;
+
+            EnemyAttacker enemyInstance =
+                _diContainer.InstantiatePrefab(enemyPrefab, at, Quaternion.identity, null).GetComponent<EnemyAttacker>();
+            
             
             ActiveEnemies.Add(enemyInstance);
             enemyInstance.GetComponent<EnemyDeath>().OnDeathEvent += RemoveEnemyFromList;
+
+            IHealth health = enemyInstance.GetComponent<IHealth>();
+            health.Max = 10;
+            health.Current = 10;
+            
+            enemyInstance.GetComponent<ActorUI>().Construct(health);
+            
         }
 
         private void RemoveEnemyFromList(EnemyDeath destroyedEnemy, GameObject destroyer)

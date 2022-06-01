@@ -52,7 +52,7 @@ namespace CodeBase.Enemies
         public void SpawnEnemies()
         {
             Vector2 position = (Vector2) _heroMove.transform.position + Helper.RandomInCircle(_minRange, _maxRange);
-            _gameFactory.Create(EnemyType.Ork, position);
+            _gameFactory.CreateEnemy(EnemyType.Ork, position);
             Debug.Log("Enemy from wave was spawned");
         }
 

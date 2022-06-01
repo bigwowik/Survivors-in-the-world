@@ -5,7 +5,7 @@ using Zenject;
 
 namespace CodeBase.Hero.Weapon
 {
-    [CreateAssetMenu(menuName = "Weapon/Create WeaponBase", fileName = "WeaponBase", order = 0)]
+    [CreateAssetMenu(menuName = "Weapon/CreateEnemy WeaponBase", fileName = "WeaponBase", order = 0)]
     public class WeaponBase : ScriptableObject
     {
 

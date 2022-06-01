@@ -13,6 +13,7 @@ namespace CodeBase.UI.Elements
 
         public void Construct(IHealth health)
         {
+            //Debug.Log($"{name} - Construct: {health}");
             _Health = health;
             _Health.HealthChanged += UpdateHpBar;
         }
@@ -31,6 +32,7 @@ namespace CodeBase.UI.Elements
 
         private void UpdateHpBar()
         {
+            Debug.Log($"{name} - UpdateHpBar");
             HpBar.SetValue(_Health.Current, _Health.Max);
         }
     }
