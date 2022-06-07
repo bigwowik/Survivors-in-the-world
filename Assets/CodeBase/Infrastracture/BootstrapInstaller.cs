@@ -1,6 +1,7 @@
 ﻿using CodeBase.Enemies;
 using CodeBase.Hero;
 using CodeBase.Infrastracture.States;
+using CodeBase.Logic.Loot;
 using CodeBase.StaticData;
 using Zenject;
 
@@ -17,6 +18,14 @@ namespace CodeBase.Infrastracture
             BindSceneLoader();
             BindEnemyFactory();
             BindStaticDataService();
+            BindWorldData();
+        }
+
+        private void BindWorldData()
+        {
+            Container
+                .Bind<WorldData>()
+                .AsSingle();
         }
 
         private void BindStaticDataService()

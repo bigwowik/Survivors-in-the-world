@@ -238,8 +238,9 @@ GameObject:
   - component: {fileID: 2449422935170331771}
   - component: {fileID: 5790116711252370833}
   - component: {fileID: 2147459508588244831}
+  - component: {fileID: -5074440397840999276}
   m_Layer: 7
-  m_Name: Orc
+  m_Name: BaseEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -289,6 +290,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36caf7da2c3c441688c0dbe657d1364c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MinimalDistance: 1
   _speed: 100
 --- !u!50 &7164353844045658921
 Rigidbody2D:
@@ -379,6 +381,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HpBar: {fileID: 1436125461294508020}
+--- !u!114 &-5074440397840999276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5720277353491606258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 967b492962a74ce08c52eb009af76de7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnemyDeath: {fileID: 5790116711252370833}
 --- !u!1 &5720277354388581608
 GameObject:
   m_ObjectHideFlags: 0

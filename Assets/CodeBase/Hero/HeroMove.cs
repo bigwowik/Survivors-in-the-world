@@ -48,6 +48,7 @@ namespace CodeBase.Hero
         private void FixedUpdate()
         {
             UpdateMoving();
+              
         }
 
         private void UpdateMoving()

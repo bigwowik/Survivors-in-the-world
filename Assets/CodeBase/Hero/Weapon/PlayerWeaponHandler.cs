@@ -20,7 +20,8 @@ namespace CodeBase.Hero.Weapon
 
 
         [Inject]
-        private void Construct(IGameFactory gameFactory) => _gameFactory = gameFactory;
+        private void Construct(IGameFactory gameFactory) 
+            => _gameFactory = gameFactory;
 
 
         private void Start() => 

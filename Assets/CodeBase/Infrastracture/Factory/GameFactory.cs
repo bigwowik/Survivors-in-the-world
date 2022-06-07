@@ -5,6 +5,7 @@ using CodeBase.Hero;
 using CodeBase.Hero.Weapon;
 using CodeBase.Infrastracture.AssetsManagment;
 using CodeBase.Logic;
+using CodeBase.Logic.Loot;
 using CodeBase.Stats;
 using CodeBase.UI.Elements;
 using UnityEngine;
@@ -16,6 +17,7 @@ namespace CodeBase.Infrastracture
     public class GameFactory : IGameFactory
     {
         private readonly DiContainer _diContainer;
+        private readonly WorldData _worldData;
 
         private GameObject _enemyPrefabOrk;
         private GameObject _enemyPrefabSmartOrk;
@@ -23,17 +25,28 @@ namespace CodeBase.Infrastracture
         public List<EnemyAttacker> ActiveEnemies = new List<EnemyAttacker>();
         private HeroMove heroMove;
         private GameObject hudInstance;
+        private Projectile _projectilePrefab;
+        private GameObject _warriorPrefab1;
 
 
-        public GameFactory(DiContainer diContainer)
+        public GameFactory(DiContainer diContainer, WorldData worldData)
         {
             _diContainer = diContainer;
+            _worldData = worldData;
+
+            
         }
 
-        public void LoadEnemies()
+        public void Load()
         {
-            _enemyPrefabOrk = (GameObject) Resources.Load(AssetPath.EnemyOrc);
-            _enemyPrefabSmartOrk = (GameObject) Resources.Load(AssetPath.EnemySmartOrk);
+            
+            
+            _enemyPrefabOrk = (GameObject) Resources.Load(AssetPath.EnemyOrk);
+            //_enemyPrefabSmartOrk = (GameObject) Resources.Load(AssetPath.EnemyOrk);
+            
+            _projectilePrefab = Resources.Load<Projectile>(AssetPath.HeroWeaponsProjectile);
+            
+            _warriorPrefab1 = (GameObject) Resources.Load(AssetPath.WarriorPrefab1);
 
 
         }
@@ -72,10 +85,10 @@ namespace CodeBase.Infrastracture
 
         public void CreateProjectile(GameObject attacker, Vector2 at, Transform directionTo, float projectileVelocity, Attack attack)
         {
-            Projectile projectilePrefab = Resources.Load<Projectile>(AssetPath.HeroWeaponsProjectile);
+            
             
             Projectile projectileInstance = _diContainer
-                .InstantiatePrefabForComponent<Projectile>(projectilePrefab, at, Quaternion.identity, null);
+                .InstantiatePrefabForComponent<Projectile>(_projectilePrefab, at, Quaternion.identity, null);
             
             projectileInstance.Launch(attacker, attack);
 
@@ -108,6 +121,9 @@ namespace CodeBase.Infrastracture
                 .InstantiatePrefab(hudPrefab);
             
             hudInstance.GetComponentInChildren<ActorUI>().Construct(heroMove.GetComponent<IHealth>());
+            hudInstance.GetComponentInChildren<LootCounter>().Construct(_worldData);
+            
+            
         }
 
         public EnemySpawner CreateEnemySpawner()
@@ -122,7 +138,30 @@ namespace CodeBase.Infrastracture
             return enemySpawnerInstance;
 
         }
-        
-        
+
+        public GameObject CreateWarrior(Transform transform)
+        {
+            GameObject warriorPrefab = _warriorPrefab1;
+
+            GameObject warriorInstance =
+                _diContainer.InstantiatePrefab(warriorPrefab, (Vector2) transform.position + Vector2.down, Quaternion.identity, null);
+            
+            IHealth health = warriorInstance.GetComponent<IHealth>();
+            health.Max = 5;
+            health.Current = 5;
+            
+            warriorInstance.GetComponent<ActorUI>().Construct(health);  //TODO in static data
+
+            return warriorInstance;
+        }
+
+        public LootItem CreateLoot()
+        {
+            GameObject prefab = Resources.Load<GameObject>(AssetPath.Loot);
+            
+            LootItem lootItem = _diContainer.InstantiatePrefab(prefab).GetComponent<LootItem>();
+            lootItem.Construct(_worldData);
+            return lootItem;
+        }
     }
 }

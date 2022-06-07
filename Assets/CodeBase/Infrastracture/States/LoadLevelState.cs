@@ -52,6 +52,8 @@ namespace CodeBase.Infrastracture.States
             
             _staticDataService.LoadData();
             
+            _gameFactory.Load();
+            
             CreateHero();
             CreateHud();
             CreateSpawner();

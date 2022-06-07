@@ -8,7 +8,7 @@ namespace CodeBase.Enemies
     [RequireComponent(typeof(Rigidbody2D))]
     public class Follow : MonoBehaviour
     {
-        private const float MinimalDistance = 1;
+        [SerializeField] private float MinimalDistance = 1f;
 
         [SerializeField] private float _speed = 1f;
 

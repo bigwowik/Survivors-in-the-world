@@ -33,7 +33,7 @@ namespace CodeBase.Enemies
 
         public void StartSpawnEnemy()
         {
-            _gameFactory.LoadEnemies();
+            //_gameFactory.Load();
 
             _levelStaticData = _staticDataService.ForLevel(SceneManager.GetActiveScene().name);
             

@@ -17,7 +17,7 @@ TagManager:
   - Projectile
   - Enemy
   - Walls
-  - 
+  - PlayerTrigger
   - 
   - 
   - 
@@ -43,6 +43,9 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Items
+    uniqueID: 977147227
     locked: 0
   - name: Projectile
     uniqueID: 3178486465
