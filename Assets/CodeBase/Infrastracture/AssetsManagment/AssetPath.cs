@@ -13,5 +13,6 @@
         public const string EnemySpawner = "Combat/EnemySpawner";
         public const string UIHud = "UI/Hud";
         public const string Loot = "Loot/Loot";
+        public const string HeroCameraPath = "Hero/Camera/HeroCamera";
     }
 }

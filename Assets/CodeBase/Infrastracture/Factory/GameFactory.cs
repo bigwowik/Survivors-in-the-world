@@ -10,6 +10,8 @@ using CodeBase.Stats;
 using CodeBase.UI.Elements;
 using UnityEngine;
 using Zenject;
+using Cinemachine;
+using UnityEditor.VersionControl;
 using Object = UnityEngine.Object;
 
 namespace CodeBase.Infrastracture
@@ -27,26 +29,25 @@ namespace CodeBase.Infrastracture
         private GameObject _hudInstance;
         private Projectile _projectilePrefab;
         private GameObject _warriorPrefab1;
+        private GameObject _heroCameraPrefab;
 
 
         public GameFactory(DiContainer diContainer, WorldData worldData)
         {
             _diContainer = diContainer;
             _worldData = worldData;
-
-            
         }
 
         public void Load()
         {
-            
-            
             _enemyPrefabOrk = (GameObject) Resources.Load(AssetPath.EnemyOrk);
             //_enemyPrefabSmartOrk = (GameObject) Resources.Load(AssetPath.EnemyOrk);
             
             _projectilePrefab = Resources.Load<Projectile>(AssetPath.HeroWeaponsProjectile);
             
             _warriorPrefab1 = (GameObject) Resources.Load(AssetPath.WarriorPrefab1);
+
+            _heroCameraPrefab = (GameObject) Resources.Load(AssetPath.HeroCameraPath);
 
 
         }
@@ -85,8 +86,6 @@ namespace CodeBase.Infrastracture
 
         public void CreateProjectile(GameObject attacker, Vector2 at, Transform directionTo, float projectileVelocity, Attack attack)
         {
-            
-            
             Projectile projectileInstance = _diContainer
                 .InstantiatePrefabForComponent<Projectile>(_projectilePrefab, at, Quaternion.identity, null);
             
@@ -97,7 +96,7 @@ namespace CodeBase.Infrastracture
             projectileInstance.GetComponent<Rigidbody2D>().velocity = direction * projectileVelocity;
         }
 
-        public void CreateHero(Vector2 at)
+        public GameObject CreateHero(Vector2 at)
         {
             GameObject heroPrefab = (GameObject) Resources.Load(AssetPath.Hero);
 
@@ -111,6 +110,8 @@ namespace CodeBase.Infrastracture
                 .Bind<HeroMove>()
                 .FromInstance(_heroMove)
                 .AsSingle();
+
+            return _heroMove.gameObject;
         }
 
         public void CreateHud()
@@ -122,8 +123,6 @@ namespace CodeBase.Infrastracture
             
             _hudInstance.GetComponentInChildren<ActorUI>().Construct(_heroMove.GetComponent<IHealth>());
             _hudInstance.GetComponentInChildren<LootCounter>().Construct(_worldData);
-            
-            
         }
 
         public EnemySpawner CreateEnemySpawner()
@@ -162,6 +161,12 @@ namespace CodeBase.Infrastracture
             LootItem lootItem = _diContainer.InstantiatePrefab(prefab).GetComponent<LootItem>();
             lootItem.Construct(_worldData);
             return lootItem;
+        }
+
+        public void CreateHeroCamera(Transform heroTransform)
+        {
+            CinemachineVirtualCamera heroCamera = _diContainer.InstantiatePrefab(_heroCameraPrefab).GetComponent<CinemachineVirtualCamera>();
+            heroCamera.Follow = heroTransform;
         }
     }
 }

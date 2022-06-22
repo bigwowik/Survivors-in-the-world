@@ -32,10 +32,8 @@ namespace CodeBase.Enemies
             _difficultyService = difficultyService;
         }
 
-        public void StartSpawnEnemy()
-        {
+        public void StartSpawnEnemy() => 
             _coroutineRunner.StartCoroutine(SpawnEnemyWaves());
-        }
 
         private IEnumerator SpawnEnemyWaves() 
         {

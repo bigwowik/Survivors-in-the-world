@@ -54,7 +54,7 @@ namespace CodeBase.Infrastracture.States
             
             _gameFactory.Load();
             
-            CreateHero();
+            CreateHeroAndCamera();
             CreateHud();
             CreateSpawner();
 
@@ -73,10 +73,11 @@ namespace CodeBase.Infrastracture.States
         private void CreateHud() => 
             _gameFactory.CreateHud();
 
-        private void CreateHero()
+        private void CreateHeroAndCamera()
         {
             Vector2 heroStartPoint = Vector2.zero;
-            _gameFactory.CreateHero(heroStartPoint);
+            var hero = _gameFactory.CreateHero(heroStartPoint);
+            _gameFactory.CreateHeroCamera(hero.transform);
         }
 
     }
