@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Numerics;
 using CodeBase.Hero;
-using CodeBase.Infrastracture;
-using CodeBase.Infrastracture.Difficulty;
+using CodeBase.Infrastructure.Difficulty;
+using CodeBase.Infrastructure.Factory;
+using CodeBase.Infrastructure.Loading;
 using CodeBase.StaticData;
 using UnityEngine;
 using UnityEngine.SceneManagement;

@@ -1,4 +1,4 @@
-﻿using CodeBase.Infrastracture;
+﻿using CodeBase.Infrastructure.Factory;
 using CodeBase.Stats;
 using UnityEngine;
 using Zenject;
@@ -9,16 +9,12 @@ namespace CodeBase.Logic.Loot
     {
         public EnemyDeath EnemyDeath;
         private IGameFactory _factory;
-        //private IRandomService _random;
-        private int _lootMin;
-        private int _lootMax;
 
 
         [Inject]
         public void Construct(IGameFactory factory)
         {
             _factory = factory;
-            //_random = random;
         }
 
         void Start()
@@ -43,10 +39,6 @@ namespace CodeBase.Logic.Loot
                 1);
         }
 
-        public void SetLoot(int min, int max)
-        {
-            _lootMin = min;
-            _lootMax = max;
-        }
+        
     }
 }

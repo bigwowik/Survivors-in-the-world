@@ -14,8 +14,20 @@ namespace CodeBase.Hero
         public float Max { get; set; }
         public void TakeDamage(float damage)
         {
-            
         }
+
+        public void Give(float value)
+        {
+            if (Current + value >= Max)
+                Current = Max;
+            else
+                Current += value;
+
+            HealthChanged?.Invoke();
+            
+            Debug.Log($"{name} healed for {value}. Now HP: {Current}");
+        }
+
 
         private void Start()
         {

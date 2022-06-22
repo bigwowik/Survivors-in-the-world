@@ -8,5 +8,6 @@ namespace CodeBase.Logic
         float Current { get; set; }
         float Max { get; set; }
         void TakeDamage(float damage);
+        void Give(float value);
     }
 }

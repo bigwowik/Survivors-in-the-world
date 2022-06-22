@@ -1,4 +1,4 @@
-﻿using CodeBase.Infrastracture;
+﻿using CodeBase.Infrastructure.Factory;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Zenject;
@@ -19,7 +19,7 @@ namespace CodeBase.Hero.Weapon
         private void Construct(IGameFactory gameFactory) => 
             _gameFactory = gameFactory;
 
-        public virtual void Shoot(GameObject attacker, IGameFactory gameFactory, PlayerWeaponHandler weaponHandler, Transform enemy)
+        public virtual void Shoot(GameObject attacker, IGameFactory gameFactory, WeaponHandler weaponHandler, Transform enemy)
         {
             gameFactory.CreateProjectile(attacker, weaponHandler.transform.position, enemy, ProjectileVelocity, Attack);
             

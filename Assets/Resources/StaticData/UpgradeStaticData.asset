@@ -9,11 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fe27fed1e154f4e91c78f09e0a0d982, type: 3}
-  m_Name: Level1
+  m_Script: {fileID: 11500000, guid: 72297932af6442e6ad7519d0900f9869, type: 3}
+  m_Name: UpgradeStaticData
   m_EditorClassIdentifier: 
-  LevelKey: Level1
-  StartEnemySpawnRepeatTime: 2.5
-  SpawnIncreaser: 0.045
-  StartEnemyHp: 1
-  EnemyHpIncreaser: 0.5
+  StartUpgradePrice: 1
+  UpgradePriceIncreaser: 1.1
+  DamageUpgradeIncreaser: 1
+  HpIncreaserValue: 3

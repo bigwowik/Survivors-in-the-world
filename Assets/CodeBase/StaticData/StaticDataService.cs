@@ -7,14 +7,19 @@ namespace CodeBase.StaticData
     public class StaticDataService : IStaticDataService
     {
         private const string StaticDataLevelsPath = "StaticData/Levels";
+        private const string UpgradeStaticDataPath = "StaticData/UpgradeStaticData";
         
         private Dictionary<string,LevelStaticData> _levels;
+
+        private UpgradeStaticData _upgradeStaticData;
         
         public void LoadData()
         {
             _levels = Resources
                 .LoadAll<LevelStaticData>(StaticDataLevelsPath)
                 .ToDictionary(x => x.LevelKey, x => x);
+            
+            _upgradeStaticData = Resources.Load<UpgradeStaticData>(UpgradeStaticDataPath);
         }
 
         public LevelStaticData ForLevel(string sceneKey) =>
@@ -22,11 +27,7 @@ namespace CodeBase.StaticData
                 ? levelStaticData 
                 : null;
 
-    }
-
-    public interface IStaticDataService
-    {
-        void LoadData();
-        LevelStaticData ForLevel(string sceneKey);
+        public UpgradeStaticData GetUpgradeStaticData() => 
+            _upgradeStaticData;
     }
 }

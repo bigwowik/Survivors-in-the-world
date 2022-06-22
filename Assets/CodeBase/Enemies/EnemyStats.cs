@@ -15,6 +15,24 @@ namespace CodeBase.Stats
         {
         }
 
+        public void Give(float value)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Give(int value)
+        {
+            if (Current + value >= Max)
+                Current = Max;
+            else
+                Current += value;
+
+            HealthChanged?.Invoke();
+            
+            Debug.Log($"{name} healed for {value}. Now HP: {Current}");
+            
+        }
+
         private void Start() => 
             Current = Max;
 

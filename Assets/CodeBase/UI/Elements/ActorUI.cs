@@ -18,6 +18,11 @@ namespace CodeBase.UI.Elements
             _Health.HealthChanged += UpdateHpBar;
         }
 
+        private void Start()
+        {
+            UpdateHpBar();
+        }
+
         private void OnDisable()
         {
             try
@@ -32,7 +37,7 @@ namespace CodeBase.UI.Elements
 
         private void UpdateHpBar()
         {
-            Debug.Log($"{name} - UpdateHpBar");
+            //Debug.Log($"{name} - UpdateHpBar");
             HpBar.SetValue(_Health.Current, _Health.Max);
         }
     }
