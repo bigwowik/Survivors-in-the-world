@@ -1,5 +1,6 @@
 ﻿using CodeBase.Enemies;
 using CodeBase.Hero;
+using CodeBase.Infrastracture.Difficulty;
 using CodeBase.Infrastracture.States;
 using CodeBase.Logic.Loot;
 using CodeBase.StaticData;
@@ -19,6 +20,7 @@ namespace CodeBase.Infrastracture
             BindEnemyFactory();
             BindStaticDataService();
             BindWorldData();
+            BindDifficultyService();
         }
 
         private void BindWorldData()
@@ -80,6 +82,15 @@ namespace CodeBase.Infrastracture
                 .Bind<IInputService>()
                 .To<UnityInputService>()
                 .AsSingle();
+        }
+        
+        private void BindDifficultyService()
+        {
+            Container
+                .Bind<IDifficultyService>()
+                .To<DifficultyService>()
+                .AsSingle();
+
         }
         
         

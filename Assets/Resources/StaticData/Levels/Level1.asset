@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Level1
   m_EditorClassIdentifier: 
   LevelKey: Level1
-  StartEnemySpawnRepeatTime: 1
+  StartEnemySpawnRepeatTime: 2
+  SpawnIncreaser: 0.05

@@ -23,8 +23,8 @@ namespace CodeBase.Infrastracture
         private GameObject _enemyPrefabSmartOrk;
 
         public List<EnemyAttacker> ActiveEnemies = new List<EnemyAttacker>();
-        private HeroMove heroMove;
-        private GameObject hudInstance;
+        private HeroMove _heroMove;
+        private GameObject _hudInstance;
         private Projectile _projectilePrefab;
         private GameObject _warriorPrefab1;
 
@@ -102,14 +102,14 @@ namespace CodeBase.Infrastracture
             GameObject heroPrefab = (GameObject) Resources.Load(AssetPath.Hero);
 
 
-            heroMove = _diContainer
+            _heroMove = _diContainer
                 .InstantiatePrefabForComponent<HeroMove>(heroPrefab, at, Quaternion.identity, null);
 
-            heroMove.GetComponent<HeroHealth>().Max = 10; //TODO in static data
+            _heroMove.GetComponent<HeroHealth>().Max = 10; //TODO in static data
 
             _diContainer
                 .Bind<HeroMove>()
-                .FromInstance(heroMove)
+                .FromInstance(_heroMove)
                 .AsSingle();
         }
 
@@ -117,11 +117,11 @@ namespace CodeBase.Infrastracture
         {
             GameObject hudPrefab = (GameObject) Resources.Load(AssetPath.UIHud);
             
-            hudInstance = _diContainer
+            _hudInstance = _diContainer
                 .InstantiatePrefab(hudPrefab);
             
-            hudInstance.GetComponentInChildren<ActorUI>().Construct(heroMove.GetComponent<IHealth>());
-            hudInstance.GetComponentInChildren<LootCounter>().Construct(_worldData);
+            _hudInstance.GetComponentInChildren<ActorUI>().Construct(_heroMove.GetComponent<IHealth>());
+            _hudInstance.GetComponentInChildren<LootCounter>().Construct(_worldData);
             
             
         }

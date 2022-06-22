@@ -31,7 +31,6 @@ public static class Helper
         float lerpAmount = 0;
 
 
-
         float timer = Time.time;
 
         while (lerpAmount < 1.01F)
@@ -69,7 +68,6 @@ public static class Helper
         float lerpAmount = 0;
 
 
-
         float timer = Time.time;
 
         while (lerpAmount < 1.01F)
@@ -103,7 +101,6 @@ public static class Helper
         float lerpAmount = 0;
 
 
-
         float timer = Time.time;
 
         while (lerpAmount < 1.01F)
@@ -121,7 +118,6 @@ public static class Helper
         //if (!fadeIn)
         //    img.gameObject.SetActive(false);
     }
-
 
 
     public static IEnumerator SelectContinueButtonLater(GameObject selectObj)
@@ -164,9 +160,6 @@ public static class Helper
         }
 
         return nearestTransform;
-
-
-
     }
 
     public static Transform GetNearTransform(Transform centerTransform, Transform[] listOfTransforms,
@@ -195,68 +188,10 @@ public static class Helper
 
         return nearestTransform;
     }
-
-    public static IEnumerator MoveRbToPointWithSpeed(Rigidbody2D rb, Vector2 pointTo, float speed,
-        bool WaitForStop = false)
-    {
-        var startPos = rb.position;
-        var moveDirection = -(Vector2) startPos + pointTo;
-
-
-        var timer = 0f;
-
-        var moveTime = moveDirection.magnitude / speed;
-
-        moveDirection.Normalize();
-
-        while (timer <= moveTime)
-        {
-            //if (timer > 0.3f && WaitForStop)
-            //{
-            //    if (rb.velocity.magnitude < 0.3f)
-            //    {
-            //        yield break;
-            //    }
-            //}
-
-
-            rb.MovePosition(rb.position + moveDirection * speed * Time.fixedDeltaTime);
-
-            timer += Time.deltaTime;
-            yield return null;
-        }
-    }
-
-
-    public static void EnablerChildButtonsInteractables(GameObject buttonsParent, bool enable)
-    {
-        foreach (Button button in buttonsParent.GetComponentsInChildren<Button>())
-        {
-            button.interactable = enable;
-        }
-    }
-
-
-    public static bool GetArrayOfTypeByGameObjects<T>(List<GameObject> gameObjectsList, out List<T> componentsList)
-    {
-        componentsList = new List<T>();
-        try
-        {
-            foreach (var go in gameObjectsList)
-            {
-                T component = go.GetComponent<T>();
-                componentsList.Add(component);
-            }
-
-            return true;
-        }
-        catch
-        {
-            return false;
-        }
-    }
     
-    public static bool GetArrayOfTypeByGameObjects<T,TBase>(List<TBase> gameObjectsList, out List<T> componentsList) where TBase : MonoBehaviour
+
+    public static bool GetArrayOfTypeByGameObjects<T, TBase>(List<TBase> gameObjectsList, out List<T> componentsList)
+        where TBase : MonoBehaviour
     {
         componentsList = new List<T>();
         try
@@ -339,7 +274,6 @@ public static class Helper
 
         Debug.DrawLine(up, down, color, duration);
         Debug.DrawLine(left, right, color, duration);
-
     }
 
 
@@ -374,6 +308,4 @@ public static class Helper
     {
         return UnityEngine.Random.Range(0, 1f) < chance;
     }
-
-
 }

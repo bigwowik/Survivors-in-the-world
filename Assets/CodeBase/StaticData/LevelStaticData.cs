@@ -7,5 +7,6 @@ namespace CodeBase.StaticData
     {
         public string LevelKey;
         public float StartEnemySpawnRepeatTime = 1f;
+        public float SpawnIncreaser = 1f;
     }
 }

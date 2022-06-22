@@ -1,6 +1,7 @@
 using System.Collections;
 using CodeBase.Enemies;
 using CodeBase.Hero;
+using CodeBase.Infrastracture.Difficulty;
 using UnityEngine;
 using Zenject;
 
@@ -18,8 +19,12 @@ namespace CodeBase.Infrastracture
 
             //BindHero();
 
+            //BindDifficultyService();
+            
             BindEnemySpawner();
         }
+
+        
 
         private void BindEnemySpawner()
         {
@@ -33,19 +38,6 @@ namespace CodeBase.Infrastracture
             Container
                 .BindInterfacesTo<LocationInstaller>()
                 .FromInstance(this)
-                .AsSingle();
-        }
-
-        private void BindHero()
-        {
-            Debug.Log("BindHero");
-            
-            HeroMove heroMove = Container
-                .InstantiatePrefabForComponent<HeroMove>(HeroPrefab, StartPoint.position, Quaternion.identity, null);
-
-            Container
-                .Bind<HeroMove>()
-                .FromInstance(heroMove)
                 .AsSingle();
         }
 

@@ -2,6 +2,7 @@
 using System.Numerics;
 using CodeBase.Hero;
 using CodeBase.Infrastracture;
+using CodeBase.Infrastracture.Difficulty;
 using CodeBase.StaticData;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -18,47 +19,41 @@ namespace CodeBase.Enemies
         private IGameFactory _gameFactory;
         private ICoroutineRunner _coroutineRunner;
         private HeroMove _heroMove;
-        private IStaticDataService _staticDataService;
-        private LevelStaticData _levelStaticData;
+        
+        private IDifficultyService _difficultyService;
 
 
         [Inject]
-        private void Construct(IGameFactory gameFactory, ICoroutineRunner coroutineRunner, HeroMove heroMove, IStaticDataService staticDataService)
+        private void Construct(IGameFactory gameFactory, ICoroutineRunner coroutineRunner, HeroMove heroMove, IDifficultyService difficultyService)
         {
             _gameFactory = gameFactory;
             _coroutineRunner = coroutineRunner;
             _heroMove = heroMove;
-            _staticDataService = staticDataService;
+            _difficultyService = difficultyService;
         }
 
         public void StartSpawnEnemy()
         {
-            //_gameFactory.Load();
-
-            _levelStaticData = _staticDataService.ForLevel(SceneManager.GetActiveScene().name);
-            
             _coroutineRunner.StartCoroutine(SpawnEnemyWaves());
         }
 
-        public IEnumerator SpawnEnemyWaves() 
+        private IEnumerator SpawnEnemyWaves() 
         {
-            while (SpawnCondition())
+            while (CanSpawn())
             {
                 SpawnEnemies();
-                yield return new WaitForSeconds(_levelStaticData.StartEnemySpawnRepeatTime);
+                yield return new WaitForSeconds(_difficultyService.EnemySpawnWaitTime());
             }
         }
 
-        public void SpawnEnemies()
+        private void SpawnEnemies()
         {
             Vector2 position = (Vector2) _heroMove.transform.position + Helper.RandomInCircle(_minRange, _maxRange);
             _gameFactory.CreateEnemy(EnemyType.Ork, position);
             Debug.Log("Enemy from wave was spawned");
         }
 
-        private bool SpawnCondition()
-        {
-            return _heroMove != null;
-        }
+        private bool CanSpawn() => 
+            _heroMove != null;
     }
 }
