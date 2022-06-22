@@ -79,7 +79,7 @@ namespace CodeBase.Infrastructure.Difficulty
             float hp = startHp
                        * ((Mathf.Pow(enemySpawned + 1, increaser))); //some balance formula, empirical
 
-            Debug.Log($"EnemySpawned: {enemySpawned}. Enemy HP: {hp}");
+            Debug.Log($"EnemySpawned: {enemySpawned}. Enemy HP: {(int)hp}");
             return hp;
         }
     }

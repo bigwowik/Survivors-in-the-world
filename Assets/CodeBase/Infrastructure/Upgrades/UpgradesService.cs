@@ -31,8 +31,6 @@ namespace CodeBase.Infrastructure.Upgrades
             if (!_worldData.LootData.Take(LootType.MONEY, price)) 
                 return;
             
-            _difficultyService.CompleteUpgrade();
-
             switch (upgradeButtonType)
             {
                 case UpgradeButtonType.BUY_SOLDIER:
@@ -45,6 +43,8 @@ namespace CodeBase.Infrastructure.Upgrades
                     BuyHp();
                     break;
             }
+            
+            _difficultyService.CompleteUpgrade();
         }
 
         private void CreateWarrior()

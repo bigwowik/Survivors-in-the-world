@@ -17,6 +17,10 @@ namespace CodeBase.Infrastructure.Factory
 {
     public class GameFactory : IGameFactory
     {
+        private const int _startHeroHpValue = 10;
+        private const int WarriorStartHp = 5;
+
+
         private readonly DiContainer _diContainer;
         private readonly WorldData _worldData;
         private readonly IDifficultyService _difficultyService;
@@ -30,6 +34,7 @@ namespace CodeBase.Infrastructure.Factory
         private Projectile _projectilePrefab;
         private GameObject _warriorPrefab1;
         private GameObject _heroCameraPrefab;
+
 
         public GameObject Hero { get; set; }
 
@@ -112,7 +117,7 @@ namespace CodeBase.Infrastructure.Factory
             _heroMove = _diContainer
                 .InstantiatePrefabForComponent<HeroMove>(heroPrefab, at, Quaternion.identity, null);
 
-            _heroMove.GetComponent<HeroHealth>().Max = 10; //TODO in static data
+            _heroMove.GetComponent<HeroHealth>().Max = _startHeroHpValue; //TODO in static data
 
             _diContainer
                 .Bind<HeroMove>()
@@ -121,7 +126,7 @@ namespace CodeBase.Infrastructure.Factory
 
             Hero = _heroMove.gameObject;
 
-            return _heroMove.gameObject;
+            return Hero;
         }
 
         public void CreateHud()
@@ -141,6 +146,7 @@ namespace CodeBase.Infrastructure.Factory
                 .FromInstance(upgradeWindow)
                 .AsSingle();
             
+            _hudInstance.GetComponentInChildren<DamageIndicator>().Init(_heroMove.GetComponent<PlayerWeaponHandler>().Weapon);
             
         }
 
@@ -165,10 +171,10 @@ namespace CodeBase.Infrastructure.Factory
                 _diContainer.InstantiatePrefab(warriorPrefab, (Vector2) _heroMove.transform.position + Vector2.down, Quaternion.identity, null);
             
             IHealth health = warriorInstance.GetComponent<IHealth>();
-            health.Max = 5;
-            health.Current = 5;
+            health.Max = WarriorStartHp;
+            health.Current = WarriorStartHp;//TODO in static data
             
-            warriorInstance.GetComponent<ActorUI>().Construct(health);  //TODO in static data
+            warriorInstance.GetComponent<ActorUI>().Construct(health);  
 
             warriorInstance.GetComponent<WarriorWeaponHandler>().Weapon =
                 _heroMove.GetComponent<PlayerWeaponHandler>().Weapon;

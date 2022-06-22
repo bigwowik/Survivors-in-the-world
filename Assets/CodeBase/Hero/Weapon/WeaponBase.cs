@@ -11,20 +11,13 @@ namespace CodeBase.Hero.Weapon
 
         public float ProjectileVelocity = 1f;
         public Attack Attack;
-        
-        private IGameFactory _gameFactory;
-
-
-        [Inject]
-        private void Construct(IGameFactory gameFactory) => 
-            _gameFactory = gameFactory;
 
         public virtual void Shoot(GameObject attacker, IGameFactory gameFactory, WeaponHandler weaponHandler, Transform enemy)
         {
             gameFactory.CreateProjectile(attacker, weaponHandler.transform.position, enemy, ProjectileVelocity, Attack);
             
             Helper.DrawCross(enemy.transform.position);
-            Debug.Log($"WeaponBase {name}. Shoot to enemy: {enemy}.");
+            //Debug.Log($"WeaponBase {name}. Shoot to enemy: {enemy}.");
         }
     }
 }

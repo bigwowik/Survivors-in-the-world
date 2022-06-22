@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using CodeBase.Enemies;
 using CodeBase.Infrastructure.Factory;
@@ -24,13 +25,11 @@ namespace CodeBase.Hero.Weapon
         private void Construct(IGameFactory gameFactory) 
             => _gameFactory = gameFactory;
 
-
-        private void Start()
-        {
+        private void Awake() => 
             Init();
+
+        private void Start() => 
             _timerUpdater = new TimerUpdater();
-            
-        }
 
         protected virtual void Init()
         {
