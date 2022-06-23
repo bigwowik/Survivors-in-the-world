@@ -1,5 +1,6 @@
 using CodeBase.Enemies;
 using CodeBase.Infrastructure.Upgrades;
+using CodeBase.Map;
 using UnityEngine;
 using Zenject;
 
@@ -19,16 +20,26 @@ namespace CodeBase.Infrastructure
 
             //BindDifficultyService();
             
-            BindEnemySpawner();
-            
+            //BindEnemySpawner();
+
+            //BindMapGeneration();
+
         }
 
-        private void BindEnemySpawner()
+        private void BindMapGeneration()
         {
             Container
-                .Bind<EnemySpawner>()
-                .AsSingle();
+                .Bind<MapGenerator>()
+                .AsSingle()
+                .NonLazy();
         }
+
+        // private void BindEnemySpawner()
+        // {
+        //     Container
+        //         .Bind<EnemySpawner>()
+        //         .AsSingle();
+        // }
 
         
 

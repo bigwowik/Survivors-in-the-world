@@ -20,5 +20,7 @@ namespace CodeBase.Infrastructure.Factory
         LootItem CreateLoot();
         void CreateHeroCamera(Transform heroTransform);
         GameObject Hero { get; set; }
+        GameObject CreateTile(GameObject getRandomElement, Vector2 pointCenter, Transform parent);
+        void CreateMapGenerator();
     }
 }

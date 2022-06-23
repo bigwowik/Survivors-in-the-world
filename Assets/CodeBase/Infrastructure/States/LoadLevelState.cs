@@ -52,12 +52,18 @@ namespace CodeBase.Infrastructure.States
             CreateHeroAndCamera();
             CreateHud();
             CreateSpawner();
+            CreateMapGenerator();
 
 
             //loadprogress
 
 
             _gameStateMachine.Enter<GameLoopState>();
+        }
+
+        private void CreateMapGenerator()
+        {
+            _gameFactory.CreateMapGenerator();
         }
 
         private void CreateSpawner()

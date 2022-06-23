@@ -1,7 +1,6 @@
 ﻿using System;
-using UnityEngine;
 
-namespace CodeBase.Hero.Weapon
+namespace CodeBase.Helpers
 {
     public class TimerUpdater
     {

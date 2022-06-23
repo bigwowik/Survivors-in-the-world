@@ -7,6 +7,7 @@ using CodeBase.Infrastructure.AssetsManagment;
 using CodeBase.Infrastructure.Difficulty;
 using CodeBase.Logic;
 using CodeBase.Logic.Loot;
+using CodeBase.Map;
 using CodeBase.Stats;
 using CodeBase.UI.Elements;
 using CodeBase.UI.Upgrades;
@@ -38,8 +39,6 @@ namespace CodeBase.Infrastructure.Factory
 
         public GameObject Hero { get; set; }
 
-
-
         public GameFactory(DiContainer diContainer, WorldData worldData, IDifficultyService difficultyService)
         {
             _diContainer = diContainer;
@@ -50,7 +49,7 @@ namespace CodeBase.Infrastructure.Factory
         public void Load()
         {
             _enemyPrefabOrk = (GameObject) Resources.Load(AssetPath.EnemyOrk);
-            //_enemyPrefabSmartOrk = (GameObject) Resources.Load(AssetPath.EnemyOrk);
+            //_enemyPrefabSmartOrk = (GameObject) Resources.Init(AssetPath.EnemyOrk);
             
             _projectilePrefab = Resources.Load<Projectile>(AssetPath.HeroWeaponsProjectile);
             
@@ -59,6 +58,11 @@ namespace CodeBase.Infrastructure.Factory
             _heroCameraPrefab = (GameObject) Resources.Load(AssetPath.HeroCameraPath);
 
 
+        }
+
+        public GameObject CreateTile(GameObject getRandomElement, Vector2 at, Transform parent)
+        {
+            return _diContainer.InstantiatePrefab(getRandomElement, at, Quaternion.identity, parent);
         }
 
         public void CreateEnemy(EnemyType enemyType, Vector2 at)
@@ -162,6 +166,8 @@ namespace CodeBase.Infrastructure.Factory
             return enemySpawnerInstance;
 
         }
+        
+        
 
         public GameObject CreateWarrior()
         {
@@ -195,6 +201,17 @@ namespace CodeBase.Infrastructure.Factory
         {
             CinemachineVirtualCamera heroCamera = _diContainer.InstantiatePrefab(_heroCameraPrefab).GetComponent<CinemachineVirtualCamera>();
             heroCamera.Follow = heroTransform;
+        }
+        
+        public void CreateMapGenerator()
+        {
+            MapGenerator prefab = Resources.Load<MapGenerator>(AssetPath.MapGeneratorPath);
+            
+            var instance = _diContainer
+                .InstantiatePrefab(prefab).GetComponent<MapGenerator>();
+            
+            instance.Init();
+
         }
 
     }
