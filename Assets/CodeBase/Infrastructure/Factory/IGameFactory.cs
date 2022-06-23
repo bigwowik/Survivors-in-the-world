@@ -22,5 +22,6 @@ namespace CodeBase.Infrastructure.Factory
         GameObject Hero { get; set; }
         GameObject CreateTile(GameObject getRandomElement, Vector2 pointCenter, Transform parent);
         void CreateMapGenerator();
+        void Reset();
     }
 }

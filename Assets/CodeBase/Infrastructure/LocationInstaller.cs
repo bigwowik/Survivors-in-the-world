@@ -15,7 +15,7 @@ namespace CodeBase.Infrastructure
         {
             Debug.Log("LocationInstaller - InstallBindings");
             BindInstallerInterfaces();
-
+            
             //BindHero();
 
             //BindDifficultyService();

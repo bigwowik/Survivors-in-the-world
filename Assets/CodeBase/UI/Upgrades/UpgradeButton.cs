@@ -1,6 +1,5 @@
 ﻿using CodeBase.Infrastructure.Difficulty;
 using CodeBase.Infrastructure.Upgrades;
-using CodeBase.UI.Windows;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

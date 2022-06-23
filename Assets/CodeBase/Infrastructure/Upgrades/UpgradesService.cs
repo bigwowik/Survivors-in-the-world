@@ -5,7 +5,7 @@ using CodeBase.Infrastructure.Factory;
 using CodeBase.Logic;
 using CodeBase.Logic.Loot;
 using CodeBase.StaticData;
-using CodeBase.UI.Windows;
+using CodeBase.UI.Upgrades;
 using UnityEngine;
 
 namespace CodeBase.Infrastructure.Upgrades

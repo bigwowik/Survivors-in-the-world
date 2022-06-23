@@ -1795,7 +1795,7 @@ TextureImporter:
     second: roguelikeSheet_transparent_596
   - first:
       213: 222138273497159589
-    second: roguelikeSheet_transparent_597
+    second: gold_loot
   - first:
       213: -2206766029532101433
     second: roguelikeSheet_transparent_598
@@ -1957,7 +1957,7 @@ TextureImporter:
     second: roguelikeSheet_transparent_650
   - first:
       213: 269761231046535880
-    second: roguelikeSheet_transparent_651
+    second: gold
   - first:
       213: -6906118952966465648
     second: roguelikeSheet_transparent_652
@@ -17764,7 +17764,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: roguelikeSheet_transparent_597
+      name: gold_loot
       rect:
         serializedVersion: 2
         x: 765
@@ -18898,7 +18898,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: roguelikeSheet_transparent_651
+      name: gold
       rect:
         serializedVersion: 2
         x: 765

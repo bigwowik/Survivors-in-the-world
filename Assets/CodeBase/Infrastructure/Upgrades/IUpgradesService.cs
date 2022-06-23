@@ -1,4 +1,4 @@
-using CodeBase.UI.Windows;
+using CodeBase.UI.Upgrades;
 
 namespace CodeBase.Infrastructure.Upgrades
 {

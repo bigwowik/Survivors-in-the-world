@@ -1,4 +1,4 @@
-namespace CodeBase.UI.Windows
+namespace CodeBase.UI.Upgrades
 {
     public enum UpgradeButtonType
     {

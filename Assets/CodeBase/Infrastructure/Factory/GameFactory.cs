@@ -18,7 +18,7 @@ namespace CodeBase.Infrastructure.Factory
 {
     public class GameFactory : IGameFactory
     {
-        private const int _startHeroHpValue = 10;
+        private const int StartHeroHpValue = 10;
         private const int WarriorStartHp = 5;
 
 
@@ -27,9 +27,8 @@ namespace CodeBase.Infrastructure.Factory
         private readonly IDifficultyService _difficultyService;
 
         private GameObject _enemyPrefabOrk;
-        private GameObject _enemyPrefabSmartOrk;
 
-        public List<EnemyAttacker> ActiveEnemies = new List<EnemyAttacker>();
+        private List<EnemyAttacker> ActiveEnemies = new List<EnemyAttacker>();
         private HeroMove _heroMove;
         private GameObject _hudInstance;
         private Projectile _projectilePrefab;
@@ -115,18 +114,19 @@ namespace CodeBase.Infrastructure.Factory
 
         public GameObject CreateHero(Vector2 at)
         {
+            
             GameObject heroPrefab = (GameObject) Resources.Load(AssetPath.Hero);
 
 
             _heroMove = _diContainer
                 .InstantiatePrefabForComponent<HeroMove>(heroPrefab, at, Quaternion.identity, null);
 
-            _heroMove.GetComponent<HeroHealth>().Max = _startHeroHpValue; //TODO in static data
+            _heroMove.GetComponent<HeroHealth>().Max = StartHeroHpValue; //TODO in static data
 
             _diContainer
                 .Bind<HeroMove>()
                 .FromInstance(_heroMove)
-                .AsSingle();
+                .AsTransient();
 
             Hero = _heroMove.gameObject;
 
@@ -214,5 +214,9 @@ namespace CodeBase.Infrastructure.Factory
 
         }
 
+        public void Reset()
+        {
+            
+        }
     }
 }
