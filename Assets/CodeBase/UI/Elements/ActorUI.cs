@@ -8,26 +8,22 @@ namespace CodeBase.UI.Elements
     {
         public HpBar HpBar;
 
-        private IHealth _Health;
-
+        private IHealth _health;
 
         public void Construct(IHealth health)
         {
-            //Debug.Log($"{name} - Construct: {health}");
-            _Health = health;
-            _Health.HealthChanged += UpdateHpBar;
+            _health = health;
+            _health.HealthChanged += UpdateHpBar;
         }
 
-        private void Start()
-        {
+        private void Start() => 
             UpdateHpBar();
-        }
 
         private void OnDisable()
         {
             try
             {
-                _Health.HealthChanged -= UpdateHpBar;
+                _health.HealthChanged -= UpdateHpBar;
             }
             catch (Exception ex)
             {
@@ -37,8 +33,7 @@ namespace CodeBase.UI.Elements
 
         private void UpdateHpBar()
         {
-            //Debug.Log($"{name} - UpdateHpBar");
-            HpBar.SetValue(_Health.Current, _Health.Max);
+            HpBar.SetValue(_health.Current, _health.Max);
         }
     }
 }

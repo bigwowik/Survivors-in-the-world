@@ -83,10 +83,6 @@ namespace CodeBase.Helpers
                 yield return null;
             }
 
-
-            //Debug.Log("FadeTime : " + (-timer + Time.time).ToString());
-            //if (!fadeIn)
-            //    img.gameObject.SetActive(false);
         }
 
         /// <summary>
@@ -116,9 +112,6 @@ namespace CodeBase.Helpers
                 yield return null;
             }
 
-            //Debug.Log("FadeTime : " + (-timer + Time.time).ToString());
-            //if (!fadeIn)
-            //    img.gameObject.SetActive(false);
         }
 
 

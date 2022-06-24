@@ -27,10 +27,8 @@ namespace CodeBase.Enemies
         private void OnTriggerExit2D(Collider2D col)
         {
             if (col.TryGetComponent(out IDamagable targetHealth) && targetHealth is IPlayerTeam && _targetHealth == targetHealth)
-            {
                 _targetHealth = null;
-            }
-                
+
         }
 
         private void Update()

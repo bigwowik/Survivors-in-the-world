@@ -16,15 +16,11 @@ namespace CodeBase.UI.Elements
 
 
         [Inject]
-        public void Construct(IDifficultyService difficultyService)
-        {
+        public void Construct(IDifficultyService difficultyService) => 
             _difficultyService = difficultyService;
-        }
 
-        public void Init(WeaponBase weapon)
-        {
+        public void Init(WeaponBase weapon) => 
             _weapon = weapon;
-        }
 
         private void Start()
         {
@@ -32,14 +28,10 @@ namespace CodeBase.UI.Elements
             UpdateDamageText();
         }
 
-        private void OnDestroy()
-        {
+        private void OnDestroy() => 
             _difficultyService.UpgradeWasCompleted -= UpdateDamageText;
-        }
 
-        private void UpdateDamageText()
-        {
+        private void UpdateDamageText() => 
             Text.text = $"{_weapon.Attack.AttackValue}";
-        }
     }
 }

@@ -9,7 +9,6 @@ namespace CodeBase.UI.Elements
 {
     public class RestartButton : MonoBehaviour
     {
-        
         private Button _button;
         
         private IRestartService _restartService;

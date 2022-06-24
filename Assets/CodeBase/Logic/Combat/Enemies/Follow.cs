@@ -10,7 +10,7 @@ namespace CodeBase.Enemies
     {
         [SerializeField] private float MinimalDistance = 1f;
 
-        [SerializeField] private float _speed = 1f;
+        [SerializeField] private float Speed = 1f;
 
         //public NavMeshAgent Agent;
         private Transform _heroTransform;
@@ -18,22 +18,15 @@ namespace CodeBase.Enemies
         private Rigidbody2D _rb;
 
         [Inject]
-        public void Construct(HeroMove heroMove)
-        {
+        public void Construct(HeroMove heroMove) => 
             _heroTransform = heroMove.transform;
-        }
 
-        private void Awake()
-        {
+        private void Awake() => 
             _rb = GetComponent<Rigidbody2D>();
-        }
 
 
-        private void FixedUpdate()
-        {
+        private void FixedUpdate() => 
             SetDestinationForAgent();
-            
-        }
 
         private void SetDestinationForAgent()
         {
@@ -44,7 +37,7 @@ namespace CodeBase.Enemies
             }
 
             if (HeroNotReached())
-                _rb.velocity = (_heroTransform.position - transform.position).normalized * _speed * Time.fixedDeltaTime;
+                _rb.velocity = (_heroTransform.position - transform.position).normalized * Speed * Time.fixedDeltaTime;
             else
                 _rb.velocity = Vector2.zero;
         }

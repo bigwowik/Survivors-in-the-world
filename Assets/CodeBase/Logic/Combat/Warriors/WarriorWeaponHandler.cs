@@ -4,7 +4,7 @@ namespace CodeBase.Hero.Weapon
     {
         protected override void Init()
         {
-            //
+            //nothing
         }
     }
 }

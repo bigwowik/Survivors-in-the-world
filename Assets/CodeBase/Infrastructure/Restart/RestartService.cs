@@ -29,7 +29,7 @@ namespace CodeBase.Infrastructure.Restart
         {
             _heroEnabler.EnablePlayer(true);
             _heroEnabler.GetComponent<PlayerWeaponHandler>().Reset();
-            _heroEnabler.GetComponent<PlayerHealth>().ResetHealth();
+            _heroEnabler.GetComponent<HeroHealth>().ResetHealth();
             
             _gameFactory.Reset();
             _worldData.LootData.Reset();

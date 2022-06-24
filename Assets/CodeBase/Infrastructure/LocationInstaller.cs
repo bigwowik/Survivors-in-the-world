@@ -8,28 +8,15 @@ using Zenject;
 
 namespace CodeBase.Infrastructure
 {
-    public class LocationInstaller : MonoInstaller, IInitializable
+    public class LocationInstaller : MonoInstaller
     {
         private IGameFactory _gameFactory;
         private IStaticDataService _staticDataService;
 
         public override void InstallBindings()
         {
-            Debug.Log("LocationInstaller - InstallBindings");
-            BindInstallerInterfaces();
-
             LoadResources();
-            
             Bindings();
-
-        }
-
-        private void BindInstallerInterfaces()
-        {
-            Container
-                .BindInterfacesTo<LocationInstaller>()
-                .FromInstance(this)
-                .AsSingle();
         }
 
         [Inject]
@@ -53,15 +40,11 @@ namespace CodeBase.Infrastructure
             _gameFactory.Load();
         }
 
-        private void CreateMapGenerator()
-        {
+        private void CreateMapGenerator() => 
             _gameFactory.CreateMapGenerator();
-        }
 
-        private void CreateSpawner()
-        {
+        private void CreateSpawner() => 
             _gameFactory.CreateEnemySpawner();
-        }
 
         private void CreateHud() =>
             _gameFactory.CreateHud();
@@ -73,12 +56,5 @@ namespace CodeBase.Infrastructure
             _gameFactory.CreateHeroCamera(hero.transform);
         }
 
-
-        public void Initialize()
-        {
-            Debug.Log("Initialize");
-
-            
-        }
     }
 }

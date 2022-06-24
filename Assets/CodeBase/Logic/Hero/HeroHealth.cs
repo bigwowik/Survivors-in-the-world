@@ -3,11 +3,9 @@ using CodeBase.Hero;
 
 namespace CodeBase.Stats
 {
-    class PlayerHealth : NpcHealth, IPlayerTeam
+    class HeroHealth : NpcHealth, IPlayerTeam
     {
-        public void ResetHealth()
-        {
+        public void ResetHealth() => 
             Give(Max);
-        }
     }
 }

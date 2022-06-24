@@ -15,15 +15,13 @@ namespace CodeBase.Enemies
 {
     public class EnemySpawner : MonoBehaviour
     {
-        [SerializeField] private float _minRange = 10f;
-        [SerializeField] private float _maxRange = 20f;
+        public float MinRange = 10f;
+        public float MaxRange = 20f;
 
         private IGameFactory _gameFactory;
         private ICoroutineRunner _coroutineRunner;
         private HeroMove _heroMove;
-        
         private IDifficultyService _difficultyService;
-
 
         [Inject]
         private void Construct(IGameFactory gameFactory, ICoroutineRunner coroutineRunner, HeroMove heroMove, IDifficultyService difficultyService)
@@ -48,7 +46,7 @@ namespace CodeBase.Enemies
 
         private void SpawnEnemies()
         {
-            Vector2 position = (Vector2) _heroMove.transform.position + Helper.RandomInCircle(_minRange, _maxRange);
+            Vector2 position = (Vector2) _heroMove.transform.position + Helper.RandomInCircle(MinRange, MaxRange);
             _gameFactory.CreateEnemy(EnemyType.Ork, position);
             Debug.Log("Enemy from wave was spawned");
         }
@@ -56,9 +54,5 @@ namespace CodeBase.Enemies
         private bool CanSpawn() => 
             _heroMove != null;
 
-        public void RestartSpawning()
-        {
-            
-        }
     }
 }

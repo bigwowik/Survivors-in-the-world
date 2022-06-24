@@ -8,13 +8,11 @@ namespace CodeBase.Hero
     {
         public event Action<HeroDeath, GameObject> OnDeathEvent;
 
-
         public void OnDestruction(GameObject destroyer)
         {
             OnDeathEvent?.Invoke(this, destroyer);
             
             GetComponent<HeroEnabler>().EnablePlayer(false);
-            //Destroy(gameObject);
         }
 
     }

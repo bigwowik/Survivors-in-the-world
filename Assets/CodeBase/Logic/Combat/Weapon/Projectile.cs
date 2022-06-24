@@ -10,7 +10,6 @@ namespace CodeBase.Hero.Weapon
         private Attack _attack;
         private GameObject _attacker;
 
-
         public void Launch(GameObject attacker, Attack attack)
         {
             _attacker = attacker;

@@ -10,10 +10,8 @@ namespace CodeBase.Infrastructure.Loading
         private readonly ICoroutineRunner _coroutineRunner;
 
         
-        public SceneLoader(ICoroutineRunner coroutineRunner)
-        {
+        public SceneLoader(ICoroutineRunner coroutineRunner) => 
             _coroutineRunner = coroutineRunner;
-        }
 
 
         public void Load(string levelName, Action onLoaded = null) => 

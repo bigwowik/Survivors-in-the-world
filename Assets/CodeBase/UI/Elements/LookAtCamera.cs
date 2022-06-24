@@ -9,7 +9,6 @@ namespace CodeBase.UI.Elements
         private void Start() => 
             _mainCamera = Camera.main;
 
-
         private void Update()
         {
             Quaternion rotation = _mainCamera.transform.rotation;

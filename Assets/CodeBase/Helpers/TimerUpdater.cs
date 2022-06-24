@@ -4,20 +4,20 @@ namespace CodeBase.Helpers
 {
     public class TimerUpdater
     {
-        private float timer;
+        private float _timer;
 
         public void TimerUpdateWithAction(float timerCooldown, bool check, Action timerAction, float deltaTime)
         {
-            if (timer > timerCooldown)
+            if (_timer > timerCooldown)
             {
                 if (check)
                 {
-                    timer = 0;
+                    _timer = 0;
                     timerAction?.Invoke();
                 }
             }
             else
-                timer += deltaTime;
+                _timer += deltaTime;
         }
     }
 }

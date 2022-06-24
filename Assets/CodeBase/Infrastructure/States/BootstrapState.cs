@@ -9,10 +9,8 @@
             _gameStateMachine = gameStateMachine;
         }
 
-        public void Enter()
-        {
+        public void Enter() => 
             _gameStateMachine.Enter<LoadLevelState>();
-        }
 
         public void Exit()
         {

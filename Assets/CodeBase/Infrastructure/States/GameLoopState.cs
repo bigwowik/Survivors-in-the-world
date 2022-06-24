@@ -5,7 +5,6 @@ namespace CodeBase.Infrastructure.States
     public class GameLoopState : IState
     {
         private readonly IGameStateMachine _gameStateMachine;
-        private readonly IGameFactory _gameFactory;
 
         public GameLoopState(IGameStateMachine gameStateMachine)
         {
@@ -19,7 +18,6 @@ namespace CodeBase.Infrastructure.States
 
         public void Exit()
         {
-            //_gameFactory.Reset();
         }
     }
 }

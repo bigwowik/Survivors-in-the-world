@@ -15,8 +15,8 @@ namespace CodeBase.Infrastructure.Factory
         List<EnemyAttacker> GetActiveEnemiesList();
         void CreateProjectile(GameObject attacker, Vector2 at, Transform directionTo, float projectileVelocity, Attack attack); //TODO only creating
         void CreateHud();
-        EnemySpawner CreateEnemySpawner();
-        GameObject CreateWarrior();
+        void CreateEnemySpawner();
+        void CreateWarrior();
         LootItem CreateLoot();
         void CreateHeroCamera(Transform heroTransform);
         GameObject Hero { get; set; }

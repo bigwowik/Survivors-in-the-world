@@ -10,10 +10,5 @@
             LootType = lootType;
             Value = value;
         }
-
-        public Loot()
-        {
-            
-        }
     }
 }

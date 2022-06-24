@@ -17,7 +17,7 @@ namespace CodeBase.Infrastructure.States
             allStates = new Dictionary<Type, IState>()
             {
                 [typeof(BootstrapState)] = new BootstrapState(this),
-                [typeof(LoadLevelState)] = new LoadLevelState(this,sceneLoader, gameFactory, coroutineRunner, staticDataService),
+                [typeof(LoadLevelState)] = new LoadLevelState(this,sceneLoader, gameFactory),
                 [typeof(GameLoopState)] = new GameLoopState(this),
             };
         }

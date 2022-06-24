@@ -36,7 +36,7 @@ namespace CodeBase.Hero.Weapon
         {
         }
 
-        public void Update()
+        private void Update()
         {
             _timerUpdater.TimerUpdateWithAction(Weapon.Attack.Cooldown,
                 TryFindEnemy(out var enemy),

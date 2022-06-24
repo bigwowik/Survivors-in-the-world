@@ -10,15 +10,12 @@ namespace CodeBase.Infrastructure
         private Game _game;
 
         [Inject]
-        private void Construct(Game game)
-        {
+        private void Construct(Game game) => 
             _game = game;
-        }
-        
+
         private void Awake()
         {
-            _game.gameStateMachine.Enter<BootstrapState>();
-            
+            _game.GameStateMachine.Enter<BootstrapState>();
             DontDestroyOnLoad(this);
             
         }

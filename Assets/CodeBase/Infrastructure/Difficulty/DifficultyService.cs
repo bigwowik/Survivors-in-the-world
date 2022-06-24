@@ -8,21 +8,13 @@ namespace CodeBase.Infrastructure.Difficulty
     public class DifficultyService : IDifficultyService
     {
         private readonly IStaticDataService _staticDataService;
-
+        
         private int _enemySpawned;
-
         private int _upgradesCount;
-
-
         public event Action UpgradeWasCompleted;
 
-        private LevelStaticData _levelStaticData =>
-            _staticDataService.ForLevel(SceneManager.GetActiveScene().name);
-
-        public DifficultyService(IStaticDataService staticDataService)
-        {
+        public DifficultyService(IStaticDataService staticDataService) => 
             _staticDataService = staticDataService;
-        }
 
         public int GetUpgradePrice()
         {
@@ -30,7 +22,6 @@ namespace CodeBase.Infrastructure.Difficulty
                                              (Mathf.Pow(_upgradesCount + 1,
                                                  _staticDataService.GetUpgradeStaticData().UpgradePriceIncreaser)));
 
-            Debug.Log($"_upgradesCount: {_upgradesCount}. currentUpgradePrice: {currentUpgradePrice}");
             return currentUpgradePrice;
         }
 
@@ -44,8 +35,8 @@ namespace CodeBase.Infrastructure.Difficulty
         {
             float currentEnemySpawnTime = GetCurrentSpawnTime(
                 _enemySpawned,
-                _levelStaticData.StartEnemySpawnRepeatTime,
-                _levelStaticData.SpawnIncreaser);
+                LevelStaticData.StartEnemySpawnRepeatTime,
+                LevelStaticData.SpawnIncreaser);
 
             return currentEnemySpawnTime;
         }
@@ -53,24 +44,31 @@ namespace CodeBase.Infrastructure.Difficulty
         public float EnemyMaxHpValue()
         {
             float hp = GetCurrentEnemyHp(_enemySpawned,
-                _levelStaticData.StartEnemyHp,
-                _levelStaticData.EnemyHpIncreaser);
+                LevelStaticData.StartEnemyHp,
+                LevelStaticData.EnemyHpIncreaser);
 
             return hp;
         }
-        
-        public void EnemyIncreaseCounter()
-        {
+
+        public void EnemyIncreaseCounter() => 
             _enemySpawned++;
+
+        public void Reset()
+        {
+            _enemySpawned = 0;
+            _upgradesCount = 0;
+            UpgradeWasCompleted?.Invoke();
         }
+
+        private LevelStaticData LevelStaticData =>
+            _staticDataService.ForLevel(SceneManager.GetActiveScene().name);
 
 
         private float GetCurrentSpawnTime(int enemySpawned, float startSpawnValue, float increaser)
         {
             float spawnTime = startSpawnValue
                               * (1 / (enemySpawned * increaser + 1)); //some balance formula, empirical
-
-            Debug.Log($"EnemySpawned: {enemySpawned}. SpawnTime: {spawnTime}");
+            
             return spawnTime;
         }
 
@@ -79,15 +77,7 @@ namespace CodeBase.Infrastructure.Difficulty
             float hp = startHp
                        * ((Mathf.Pow(enemySpawned + 1, increaser))); //some balance formula, empirical
 
-            Debug.Log($"EnemySpawned: {enemySpawned}. Enemy HP: {(int)hp}");
             return hp;
-        }
-
-        public void Reset()
-        {
-            _enemySpawned = 0;
-            _upgradesCount = 0;
-            UpgradeWasCompleted?.Invoke();
         }
     }
 }

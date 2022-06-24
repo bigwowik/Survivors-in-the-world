@@ -18,14 +18,10 @@ namespace CodeBase.UI.Elements
             _worldData.LootData.Changed += UpdateCounter;
         }
 
-        private void Start()
-        {
+        private void Start() => 
             UpdateCounter();
-        }
 
-        private void UpdateCounter()
-        {
+        private void UpdateCounter() => 
             Counter.text = $"{_worldData.LootData.Collected[LootType.MONEY]}";
-        }
     }
 }

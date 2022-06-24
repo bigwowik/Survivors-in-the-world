@@ -11,9 +11,8 @@ namespace CodeBase.Map
 {
     public class MapGenerator : MonoBehaviour
     {
-        public const int TileSize = 16;
-        public const int MinDistanceToPlayer = 20;
-        public const int MinDistanceToPlayerToSpawnObjects = 15;
+        private const int MinDistanceToPlayer = 20;
+        private const int MinDistanceToPlayerToSpawnObjects = 15;
 
         private const int TileAxisHalfCount = 20;
         private const float ChanceToSpawnObject = 0.1f;
@@ -27,10 +26,8 @@ namespace CodeBase.Map
 
         private Vector2Int _lastHeroPosition;
 
-        //private List<Transform> tiles = new List<Transform>();
-
-        private Dictionary<Vector2Int, Transform> Tiles = new Dictionary<Vector2Int, Transform>();
-        private Dictionary<Vector2Int, Transform> ObjectTiles = new Dictionary<Vector2Int, Transform>();
+        private readonly Dictionary<Vector2Int, Transform> Tiles = new Dictionary<Vector2Int, Transform>();
+        private readonly Dictionary<Vector2Int, Transform> ObjectTiles = new Dictionary<Vector2Int, Transform>();
 
 
         [Inject]
@@ -54,21 +51,24 @@ namespace CodeBase.Map
         private void StartGeneration()
         {
             var pointCenter = _lastHeroPosition;
+            
             for (int x = -TileAxisHalfCount; x < TileAxisHalfCount; x++)
-            {
-                for (int y = -TileAxisHalfCount; y < TileAxisHalfCount; y++)
-                {
-                    var positionToSpawn = PositionToSpawn(pointCenter, x, y);
-
-                    SpawnOneTile(positionToSpawn, _mapFloorTiles, Tiles);
-
-                    if (Helper.RandomBool(ChanceToSpawnObject))
-                        SpawnOneTile(positionToSpawn, _mapObjectsTiles, ObjectTiles);
-                }
-            }
+            for (int y = -TileAxisHalfCount; y < TileAxisHalfCount; y++)
+                StartSpawnOneTile(pointCenter, x, y);
         }
 
-        private void SpawnOneTile(Vector2Int positionToSpawn, GameObject[] tilesArray,
+        private void StartSpawnOneTile(Vector2Int pointCenter, int x, int y)
+        {
+            var positionToSpawn = PositionToSpawn(pointCenter, x, y);
+
+            SpawnOneTile(positionToSpawn, _mapFloorTiles, Tiles);
+
+            if (Helper.RandomBool(ChanceToSpawnObject))
+                SpawnOneTile(positionToSpawn, _mapObjectsTiles, ObjectTiles);
+        }
+
+        private void SpawnOneTile(Vector2Int positionToSpawn, 
+            GameObject[] tilesArray, 
             Dictionary<Vector2Int, Transform> tilesDictionary)
         {
             var floorTile = _gameFactory.CreateTile(GetRandomElement(tilesArray),
@@ -80,7 +80,8 @@ namespace CodeBase.Map
                 floorTile.transform);
         }
         
-        private void SpawnOneTile(Vector2Int positionToSpawn, GameObject tile,
+        private void SpawnOneTile(Vector2Int positionToSpawn, 
+            GameObject tile, 
             Dictionary<Vector2Int, Transform> tilesDictionary)
         {
             var floorTile = _gameFactory.CreateTile(tile,
@@ -90,11 +91,6 @@ namespace CodeBase.Map
             tilesDictionary.Add(
                 positionToSpawn,
                 floorTile.transform);
-        }
-
-        private GameObject GetRandomElement(GameObject[] collection)
-        {
-            return collection[Random.Range(0, collection.Length)];
         }
 
 
@@ -110,10 +106,13 @@ namespace CodeBase.Map
             UpdateTiles(_lastHeroPosition, ObjectTiles, _mapObjectsTiles, ChanceToSpawnObject);
         }
 
-        private void UpdateTiles(Vector2Int pointCenter, Dictionary<Vector2Int, Transform> tiles,
-            GameObject[] tilesGameObjects, float randomChance = 1f)
+        private void UpdateTiles(Vector2Int pointCenter, 
+            Dictionary<Vector2Int, Transform> tiles,
+            GameObject[] tilesGameObjects, 
+            float randomChance = 1f)
         {
             var deletedTiles = new List<KeyValuePair<Vector2Int, Transform>>();
+            
             foreach (var tile in tiles)
             {
                 var tileTransform = tile.Value.transform;
@@ -130,31 +129,33 @@ namespace CodeBase.Map
             SpawnTiles(pointCenter, tiles, tilesGameObjects, randomChance);
         }
 
-        private void SpawnTiles(Vector2Int pointCenter, Dictionary<Vector2Int, Transform> tiles,
-            GameObject[] tilesGameObjects, float randomChance)
+        private void SpawnTiles(Vector2Int pointCenter, 
+            Dictionary<Vector2Int, Transform> tiles,
+            GameObject[] tilesGameObjects, 
+            float randomChance)
         {
             for (int x = -TileAxisHalfCount; x < TileAxisHalfCount; x++)
+            for (int y = -TileAxisHalfCount; y < TileAxisHalfCount; y++)
             {
-                for (int y = -TileAxisHalfCount; y < TileAxisHalfCount; y++)
+                var positionToSpawn = PositionToSpawn(pointCenter, x, y);
+                if (!tiles.ContainsKey(positionToSpawn))
                 {
-                    var positionToSpawn = PositionToSpawn(pointCenter, x, y);
-                    if (!tiles.ContainsKey(positionToSpawn))
-                    {
-                        if (randomChance >= 1f)
-                            SpawnOneTile(positionToSpawn, tilesGameObjects, tiles);
-                        else if (Vector2Int.Distance(pointCenter, positionToSpawn) >
-                                 MinDistanceToPlayerToSpawnObjects && Helper.RandomBool(randomChance))
-                            SpawnOneTile(positionToSpawn, tilesGameObjects, tiles);
-                        else
-                            SpawnOneTile(positionToSpawn, _mapEmptyObjectTile, tiles);
-                    }
+                    
+                    if (randomChance >= 1f)// for floor tiles
+                        SpawnOneTile(positionToSpawn, tilesGameObjects, tiles);
+                    else if (Vector2Int.Distance(pointCenter, positionToSpawn) > MinDistanceToPlayerToSpawnObjects 
+                             && Helper.RandomBool(randomChance))
+                        SpawnOneTile(positionToSpawn, tilesGameObjects, tiles); // for objects tiles
+                    else
+                        SpawnOneTile(positionToSpawn, _mapEmptyObjectTile, tiles);
                 }
             }
         }
 
-        private Vector2Int PositionToSpawn(Vector2Int pointCenter, int x, int y)
-        {
-            return (pointCenter + Vector2Int.right * x + Vector2Int.up * y);
-        }
+        private Vector2Int PositionToSpawn(Vector2Int pointCenter, int x, int y) => 
+            (pointCenter + Vector2Int.right * x + Vector2Int.up * y);
+        
+        private GameObject GetRandomElement(GameObject[] collection) => 
+            collection[Random.Range(0, collection.Length)];
     }
 }

@@ -21,23 +21,20 @@ namespace CodeBase.Infrastructure.Factory
         private const int StartHeroHpValue = 10;
         private const int WarriorStartHp = 5;
 
-
         private readonly DiContainer _diContainer;
         private readonly WorldData _worldData;
         private readonly IDifficultyService _difficultyService;
 
-        private GameObject _enemyPrefabOrk;
 
         private List<EnemyAttacker> ActiveEnemies = new List<EnemyAttacker>();
-        private new List<WarriorDeath> ActiveWarriors = new List<WarriorDeath>();
+        private List<WarriorDeath> ActiveWarriors = new List<WarriorDeath>();
 
-        
-        
         private HeroMove _heroMove;
         private GameObject _hudInstance;
         private Projectile _projectilePrefab;
         private GameObject _warriorPrefab1;
         private GameObject _heroCameraPrefab;
+        private GameObject _enemyPrefabOrk;
 
 
         public GameObject Hero { get; set; }
@@ -52,21 +49,13 @@ namespace CodeBase.Infrastructure.Factory
         public void Load()
         {
             _enemyPrefabOrk = (GameObject) Resources.Load(AssetPath.EnemyOrk);
-            //_enemyPrefabSmartOrk = (GameObject) Resources.Init(AssetPath.EnemyOrk);
-            
             _projectilePrefab = Resources.Load<Projectile>(AssetPath.HeroWeaponsProjectile);
-            
-            _warriorPrefab1 = (GameObject) Resources.Load(AssetPath.WarriorPrefab1);
-
+            _warriorPrefab1 = (GameObject) Resources.Load(AssetPath.WarriorPrefab);
             _heroCameraPrefab = (GameObject) Resources.Load(AssetPath.HeroCameraPath);
-
-
         }
 
-        public GameObject CreateTile(GameObject getRandomElement, Vector2 at, Transform parent)
-        {
-            return _diContainer.InstantiatePrefab(getRandomElement, at, Quaternion.identity, parent);
-        }
+        public GameObject CreateTile(GameObject getRandomElement, Vector2 at, Transform parent) => 
+            _diContainer.InstantiatePrefab(getRandomElement, at, Quaternion.identity, parent);
 
         public void CreateEnemy(EnemyType enemyType, Vector2 at)
         {
@@ -75,15 +64,13 @@ namespace CodeBase.Infrastructure.Factory
             EnemyAttacker enemyInstance =
                 _diContainer.InstantiatePrefab(enemyPrefab, at, Quaternion.identity, null).GetComponent<EnemyAttacker>();
             
-            
             ActiveEnemies.Add(enemyInstance);
             enemyInstance.GetComponent<EnemyDeath>().OnDeathEvent += RemoveEnemyFromList;
 
             IHealth health = enemyInstance.GetComponent<IHealth>();
 
-
             health.Max = (int)_difficultyService.EnemyMaxHpValue();
-            health.Current = (int)_difficultyService.EnemyMaxHpValue();
+            //health.Current = (int)_difficultyService.EnemyMaxHpValue();
             
             _difficultyService.EnemyIncreaseCounter();
             
@@ -99,10 +86,8 @@ namespace CodeBase.Infrastructure.Factory
             Debug.Log($"Active enemies: {ActiveEnemies.Count}" );
         }
 
-        public List<EnemyAttacker> GetActiveEnemiesList()
-        {
-            return ActiveEnemies;
-        }
+        public List<EnemyAttacker> GetActiveEnemiesList() => 
+            ActiveEnemies;
 
         public void CreateProjectile(GameObject attacker, Vector2 at, Transform directionTo, float projectileVelocity, Attack attack)
         {
@@ -158,7 +143,7 @@ namespace CodeBase.Infrastructure.Factory
             
         }
 
-        public EnemySpawner CreateEnemySpawner()
+        public void CreateEnemySpawner()
         {
             EnemySpawner enemyFactoryPrefab = Resources.Load<EnemySpawner>(AssetPath.EnemySpawner);
             
@@ -166,14 +151,12 @@ namespace CodeBase.Infrastructure.Factory
                 .InstantiatePrefab(enemyFactoryPrefab).GetComponent<EnemySpawner>();
             
             enemySpawnerInstance.StartSpawnEnemy();
-            
-            return enemySpawnerInstance;
 
         }
 
 
 
-        public GameObject CreateWarrior()
+        public void CreateWarrior()
         {
             GameObject warriorPrefab = _warriorPrefab1;
 
@@ -193,8 +176,6 @@ namespace CodeBase.Infrastructure.Factory
             var warriorDeath = warriorInstance.GetComponent<WarriorDeath>();
             ActiveWarriors.Add(warriorDeath);
             warriorDeath.OnDeathEvent += OnWarriorDeath;
-
-            return warriorInstance;
         }
 
         public LootItem CreateLoot()

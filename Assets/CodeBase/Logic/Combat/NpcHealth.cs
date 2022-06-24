@@ -1,19 +1,16 @@
 ﻿using System;
 using CodeBase.Hero.Weapon;
 using CodeBase.Logic;
-using CodeBase.Stats;
 using UnityEngine;
 
-namespace CodeBase.Hero
+namespace CodeBase.Stats
 {
-    [RequireComponent(typeof(HeroDeath))]
-    public class HeroHealth : MonoBehaviour, IHealth, IDamagable
+    public class NpcHealth : MonoBehaviour, IDamagable, IHealth
     {
         public event Action HealthChanged;
         public float Current { get; set; }
         public float Max { get; set; }
         
-
         public void Give(float value)
         {
             if (Current + value >= Max)
@@ -22,27 +19,28 @@ namespace CodeBase.Hero
                 Current += value;
 
             HealthChanged?.Invoke();
-            
             Debug.Log($"{name} healed for {value}. Now HP: {Current}");
         }
 
 
-        private void Start()
-        {
-            Current = Max;
-            HealthChanged?.Invoke();
-        }
-
         public void TryTakeDamage(GameObject attacker,Attack attack)
         {
-            Current -= Mathf.RoundToInt(attack.AttackValue);
+            if (Current - attack.AttackValue <= 0)
+                Current = 0;
+            else
+                Current -= Mathf.RoundToInt(attack.AttackValue);
             
             HealthChanged?.Invoke();
-            
             Debug.Log($"{name} take damage {attack.AttackValue}. Now HP: {Current}");
 
             if (Current <= 0)
                 Death(attacker);
+        }
+
+        protected virtual void Start()
+        {
+            Current = Max;
+            HealthChanged?.Invoke();
         }
 
         private void Death(GameObject attacker)
@@ -50,7 +48,5 @@ namespace CodeBase.Hero
             foreach (IDestructable destructable in GetComponentsInChildren<IDestructable>())
                 destructable.OnDestruction(attacker);
         }
-
-        
     }
 }

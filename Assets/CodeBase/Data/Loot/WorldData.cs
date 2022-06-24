@@ -4,9 +4,7 @@ namespace CodeBase.Logic.Loot
     {
         public LootData LootData;
 
-        public WorldData()
-        {
+        public WorldData() => 
             LootData = new LootData();
-        }
     }
 }

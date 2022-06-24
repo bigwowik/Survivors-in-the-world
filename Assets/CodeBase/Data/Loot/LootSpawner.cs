@@ -8,19 +8,16 @@ namespace CodeBase.Logic.Loot
     public class LootSpawner : MonoBehaviour
     {
         public EnemyDeath EnemyDeath;
+        
         private IGameFactory _factory;
 
 
         [Inject]
-        public void Construct(IGameFactory factory)
-        {
+        public void Construct(IGameFactory factory) => 
             _factory = factory;
-        }
 
-        void Start()
-        {
+        void Start() => 
             EnemyDeath.OnDeathEvent += SpawnLoot;
-        }
 
         private void SpawnLoot(EnemyDeath destroyedObject, GameObject destroyer)
         {
