@@ -47,6 +47,13 @@ namespace CodeBase.Logic.Loot
             else
                 return false;
         }
+
+        public void Reset()
+        {
+            Collected[LootType.MONEY] = 0;
+            Collected[LootType.CRYSTAL] = 0;
+            Changed?.Invoke();
+        }
     }
 
 }

@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using CodeBase.Hero;
 using CodeBase.Hero.Weapon;
+using CodeBase.Stats;
 using UnityEngine;
 
 namespace CodeBase.Enemies
@@ -10,28 +11,31 @@ namespace CodeBase.Enemies
     {
         public Attack Attack;
 
-        private HeroHealth _currentHeroHealth;
+        private IDamagable _targetHealth;
         private float _lastAttackTime;
 
 
-        private void OnCollisionEnter2D(Collision2D col)
+        private void OnTriggerEnter2D(Collider2D col)
         {
-            if (col.collider.TryGetComponent(out HeroHealth heroHealth))
+            if (col.TryGetComponent(out IDamagable targetHealth) && targetHealth is IPlayerTeam)
             {
-                _currentHeroHealth = heroHealth;
+                _targetHealth = targetHealth;
                 TryAttack();
             }
         }
 
-        private void OnCollisionExit2D(Collision2D col)
+        private void OnTriggerExit2D(Collider2D col)
         {
-            if (col.collider.TryGetComponent(out HeroHealth heroHealth)) 
-                _currentHeroHealth = null;
+            if (col.TryGetComponent(out IDamagable targetHealth) && targetHealth is IPlayerTeam && _targetHealth == targetHealth)
+            {
+                _targetHealth = null;
+            }
+                
         }
 
         private void Update()
         {
-            if (_currentHeroHealth == null)
+            if (_targetHealth == null)
                 return;
             
             TryAttack();
@@ -41,7 +45,7 @@ namespace CodeBase.Enemies
             if (Time.time >= _lastAttackTime + Attack.Cooldown)
             {
                 _lastAttackTime = Time.time;
-                _currentHeroHealth.TryTakeDamage(gameObject, Attack);
+                _targetHealth.TryTakeDamage(gameObject, Attack);
             }
         }
     }

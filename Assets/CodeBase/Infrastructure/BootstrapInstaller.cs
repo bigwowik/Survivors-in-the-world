@@ -1,6 +1,7 @@
 ﻿using CodeBase.Infrastructure.Difficulty;
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Loading;
+using CodeBase.Infrastructure.Restart;
 using CodeBase.Infrastructure.States;
 using CodeBase.Infrastructure.Upgrades;
 using CodeBase.Logic.Loot;
@@ -23,6 +24,15 @@ namespace CodeBase.Infrastructure
             BindWorldData();
             BindDifficultyService();
             BindUpdateService();
+            BindRestartService();
+        }
+
+        private void BindRestartService()
+        {
+            Container
+                .Bind<IRestartService>()
+                .To<RestartService>()
+                .AsSingle();
         }
 
         private void BindUpdateService()

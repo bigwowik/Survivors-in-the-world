@@ -1,3 +1,5 @@
+using CodeBase.Hero;
+using CodeBase.Infrastructure.Restart;
 using CodeBase.Infrastructure.States;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,11 +11,12 @@ namespace CodeBase.UI.Elements
     {
         
         private Button _button;
-        private IGameStateMachine _gameStateMachine;
+        
+        private IRestartService _restartService;
 
         [Inject]
-        private void Construct(IGameStateMachine gameStateMachine) =>
-            _gameStateMachine = gameStateMachine;
+        private void Construct(IRestartService restartService) => 
+            _restartService = restartService;
 
         private void Awake()
         {
@@ -21,9 +24,7 @@ namespace CodeBase.UI.Elements
             _button.onClick.AddListener(OnClick);
         }
 
-        private void OnClick()
-        {
-            _gameStateMachine.Enter<LoadLevelState>();
-        }
+        private void OnClick() => 
+            _restartService.RestartGame();
     }
 }

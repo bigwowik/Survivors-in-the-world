@@ -10,6 +10,7 @@ namespace CodeBase.Infrastructure.Difficulty
         event Action UpgradeWasCompleted;
         float EnemyMaxHpValue();
         void EnemyIncreaseCounter();
+        void Reset();
     }
 
 }

@@ -31,7 +31,10 @@ namespace CodeBase.Infrastructure.States
             _coroutineRunner = coroutineRunner;
             _staticDataService = staticDataService;
         }
-
+        public void Enter(string newScene)
+        {
+            _sceneLoader.Load(newScene, OnLoaded);
+        }
         public void Enter()
         {
             _sceneLoader.Load(SceneName, OnLoaded);
@@ -45,14 +48,14 @@ namespace CodeBase.Infrastructure.States
         {
             Debug.Log("LoadLevelState - On loaded");
             
-            _staticDataService.LoadData();
+            //_staticDataService.LoadData();
             
-            _gameFactory.Load();
-            
-            CreateHeroAndCamera();
-            CreateHud();
-            CreateSpawner();
-            CreateMapGenerator();
+            // _gameFactory.Load();
+            //
+            // CreateHeroAndCamera();
+            // CreateHud();
+            // CreateSpawner();
+            // CreateMapGenerator();
 
 
             //loadprogress

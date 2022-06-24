@@ -292,8 +292,9 @@ GameObject:
   - component: {fileID: 201902189}
   - component: {fileID: 1930601810852292057}
   - component: {fileID: 8651944540262935685}
-  - component: {fileID: 6692058280443989598}
   - component: {fileID: 6199679618045086561}
+  - component: {fileID: 6388841972994633040}
+  - component: {fileID: 9129614713325029676}
   m_Layer: 3
   m_Name: Hero
   m_TagString: Player
@@ -379,18 +380,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4397d52838a54998b2921da50c555dd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6692058280443989598
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5272552499143439441}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd956704323043c7833ed92629c76e62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &6199679618045086561
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -406,3 +395,27 @@ MonoBehaviour:
   WeaponTemplate: {fileID: 11400000, guid: befe4809ad5f32d4ebae025709595c29, type: 2}
   Weapon: {fileID: 0}
   PlayerAttackRadius: 10
+--- !u!114 &6388841972994633040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5272552499143439441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2f4206bf2b44765804fbf09a2a9fbf6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &9129614713325029676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5272552499143439441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a7492a1fe1544b0bb74e0938d12cb85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

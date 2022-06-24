@@ -430,10 +430,11 @@ GameObject:
   - component: {fileID: 7164353844045658921}
   - component: {fileID: 6980473569440722503}
   - component: {fileID: 5353398889164301161}
-  - component: {fileID: 2449422935170331771}
   - component: {fileID: 5790116711252370833}
   - component: {fileID: 2147459508588244831}
   - component: {fileID: -5074440397840999276}
+  - component: {fileID: 5216298816571671679}
+  - component: {fileID: 7969631647235721606}
   m_Layer: 7
   m_Name: BaseEnemy
   m_TagString: Untagged
@@ -502,11 +503,11 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.85, y: 1}
+  m_Size: {x: 1.0451491, y: 1.1999224}
   m_Direction: 0
 --- !u!114 &5353398889164301161
 MonoBehaviour:
@@ -523,18 +524,6 @@ MonoBehaviour:
   Attack:
     Cooldown: 1
     AttackValue: 1
---- !u!114 &2449422935170331771
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5720277353491606258}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ae458ec91e44dd481642dd9961feb30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &5790116711252370833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -573,6 +562,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnemyDeath: {fileID: 5790116711252370833}
+--- !u!114 &5216298816571671679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5720277353491606258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dcfa72f52884dedaeb0b5e8f66b2bdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!70 &7969631647235721606
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5720277353491606258}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 0.7826296, y: 1}
+  m_Direction: 0
 --- !u!1 &8492092169885418303
 GameObject:
   m_ObjectHideFlags: 0

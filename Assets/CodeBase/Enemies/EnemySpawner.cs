@@ -55,5 +55,10 @@ namespace CodeBase.Enemies
 
         private bool CanSpawn() => 
             _heroMove != null;
+
+        public void RestartSpawning()
+        {
+            
+        }
     }
 }

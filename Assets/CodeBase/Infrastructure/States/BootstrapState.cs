@@ -11,9 +11,6 @@
 
         public void Enter()
         {
-            //AllServices.Container.Register<IInputService>(new UnityInputService());
-            
-            
             _gameStateMachine.Enter<LoadLevelState>();
         }
 

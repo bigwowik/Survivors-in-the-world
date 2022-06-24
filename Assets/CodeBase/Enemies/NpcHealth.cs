@@ -5,22 +5,13 @@ using UnityEngine;
 
 namespace CodeBase.Stats
 {
-    [RequireComponent(typeof(EnemyDeath))]
-    public class EnemyStats : MonoBehaviour, IDamagable, IHealth
+    public class NpcHealth : MonoBehaviour, IDamagable, IHealth
     {
         public event Action HealthChanged;
         public float Current { get; set; }
         public float Max { get; set; }
-        public void TakeDamage(float damage)
-        {
-        }
-
+        
         public void Give(float value)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Give(int value)
         {
             if (Current + value >= Max)
                 Current = Max;
@@ -30,15 +21,22 @@ namespace CodeBase.Stats
             HealthChanged?.Invoke();
             
             Debug.Log($"{name} healed for {value}. Now HP: {Current}");
-            
         }
 
-        private void Start() => 
+
+        protected virtual void Start()
+        {
             Current = Max;
+            HealthChanged?.Invoke();
+        }
 
         public void TryTakeDamage(GameObject attacker,Attack attack)
         {
-            Current -= Mathf.RoundToInt(attack.AttackValue);
+            if (Current - attack.AttackValue <= 0)
+                Current = 0;
+            else
+                Current -= Mathf.RoundToInt(attack.AttackValue);
+            
             HealthChanged?.Invoke();
             
             Debug.Log($"{name} take damage {attack.AttackValue}. Now HP: {Current}");

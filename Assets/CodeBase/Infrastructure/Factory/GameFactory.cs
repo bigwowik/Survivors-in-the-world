@@ -29,6 +29,10 @@ namespace CodeBase.Infrastructure.Factory
         private GameObject _enemyPrefabOrk;
 
         private List<EnemyAttacker> ActiveEnemies = new List<EnemyAttacker>();
+        private new List<WarriorDeath> ActiveWarriors = new List<WarriorDeath>();
+
+        
+        
         private HeroMove _heroMove;
         private GameObject _hudInstance;
         private Projectile _projectilePrefab;
@@ -121,7 +125,7 @@ namespace CodeBase.Infrastructure.Factory
             _heroMove = _diContainer
                 .InstantiatePrefabForComponent<HeroMove>(heroPrefab, at, Quaternion.identity, null);
 
-            _heroMove.GetComponent<HeroHealth>().Max = StartHeroHpValue; //TODO in static data
+            _heroMove.GetComponent<IHealth>().Max = StartHeroHpValue; //TODO in static data
 
             _diContainer
                 .Bind<HeroMove>()
@@ -166,8 +170,8 @@ namespace CodeBase.Infrastructure.Factory
             return enemySpawnerInstance;
 
         }
-        
-        
+
+
 
         public GameObject CreateWarrior()
         {
@@ -184,6 +188,11 @@ namespace CodeBase.Infrastructure.Factory
 
             warriorInstance.GetComponent<WarriorWeaponHandler>().Weapon =
                 _heroMove.GetComponent<PlayerWeaponHandler>().Weapon;
+
+            
+            var warriorDeath = warriorInstance.GetComponent<WarriorDeath>();
+            ActiveWarriors.Add(warriorDeath);
+            warriorDeath.OnDeathEvent += OnWarriorDeath;
 
             return warriorInstance;
         }
@@ -216,7 +225,31 @@ namespace CodeBase.Infrastructure.Factory
 
         public void Reset()
         {
+            foreach (var enemy in ActiveEnemies)
+            {
+                enemy.GetComponent<EnemyDeath>().OnDeathEvent -= RemoveEnemyFromList;
+
+                GameObject.Destroy(enemy.gameObject);
+            }
+            ActiveEnemies.Clear();
             
+            
+
+            foreach (var warrior in ActiveWarriors)
+            {
+                warrior.GetComponent<WarriorDeath>().OnDeathEvent -= OnWarriorDeath;
+                
+                GameObject.Destroy(warrior.gameObject);
+            }
+            ActiveWarriors.Clear();
+
+            
+        }
+
+        private void OnWarriorDeath(WarriorDeath warrior, GameObject destroyer)
+        {
+            warrior.GetComponent<WarriorDeath>().OnDeathEvent -= OnWarriorDeath;
+            ActiveWarriors.Remove(warrior);
         }
     }
 }

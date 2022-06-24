@@ -82,5 +82,12 @@ namespace CodeBase.Infrastructure.Difficulty
             Debug.Log($"EnemySpawned: {enemySpawned}. Enemy HP: {(int)hp}");
             return hp;
         }
+
+        public void Reset()
+        {
+            _enemySpawned = 0;
+            _upgradesCount = 0;
+            UpgradeWasCompleted?.Invoke();
+        }
     }
 }

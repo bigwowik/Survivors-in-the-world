@@ -19,7 +19,7 @@ namespace CodeBase.Infrastructure.States
 
         public void Exit()
         {
-            _gameFactory.Reset();
+            //_gameFactory.Reset();
         }
     }
 }
