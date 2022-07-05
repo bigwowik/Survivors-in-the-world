@@ -1,4 +1,5 @@
-﻿using CodeBase.Infrastructure.Difficulty;
+﻿using System;
+using CodeBase.Infrastructure.Difficulty;
 using CodeBase.Infrastructure.Upgrades;
 using TMPro;
 using UnityEngine;
@@ -22,6 +23,11 @@ namespace CodeBase.UI.Upgrades
         {
             _button = GetComponent<Button>();
             _button.onClick.AddListener(OnClick);
+        }
+
+        private void OnDestroy()
+        {
+            _button.onClick.RemoveListener(OnClick);
         }
 
         private void OnClick() => 

@@ -1,7 +1,4 @@
-﻿using CodeBase.Enemies;
-using CodeBase.Infrastructure.Factory;
-using CodeBase.Infrastructure.Loading;
-using CodeBase.StaticData;
+﻿using CodeBase.Infrastructure.Loading;
 using UnityEngine;
 
 namespace CodeBase.Infrastructure.States
@@ -12,18 +9,11 @@ namespace CodeBase.Infrastructure.States
 
         private readonly IGameStateMachine _gameStateMachine;
         private SceneLoader _sceneLoader;
-        private IGameFactory _gameFactory;
 
-        private EnemySpawner _enemySpawnerInstance;
-
-        public LoadLevelState(IGameStateMachine gameStateMachine,
-            SceneLoader sceneLoader,
-            IGameFactory gameFactory
-            )
+        public LoadLevelState(IGameStateMachine gameStateMachine, SceneLoader sceneLoader)
         {
             _gameStateMachine = gameStateMachine;
             _sceneLoader = sceneLoader;
-            _gameFactory = gameFactory;
         }
         public void Enter()
         {

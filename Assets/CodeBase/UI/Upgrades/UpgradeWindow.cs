@@ -2,13 +2,14 @@
 using CodeBase.Infrastructure.Difficulty;
 using CodeBase.Infrastructure.Upgrades;
 using CodeBase.Logic.Loot;
+using CodeBase.UI.Windows;
 using TMPro;
 using UnityEngine;
 using Zenject;
 
 namespace CodeBase.UI.Upgrades
 {
-    public class UpgradeWindow : MonoBehaviour
+    public class UpgradeWindow : WindowBase
     {
         public UpgradeButton[] UpgradeButtons;
         
@@ -24,14 +25,25 @@ namespace CodeBase.UI.Upgrades
             _worldData = worldData;
             _difficultyService = difficultyService;
         }
-        
-        private void Start()
+
+        protected override void Initialize()
         {
-            _difficultyService.UpgradeWasCompleted += UpdatePrice;
-            _worldData.LootData.Changed += UpdatePrice;
             UpdatePrice();
         }
 
+        protected override void SubscribeUpdate()
+        {
+            _difficultyService.UpgradeWasCompleted += UpdatePrice;
+            _worldData.LootData.Changed += UpdatePrice;
+        }
+
+        protected override void CleanUp()
+        {
+            _difficultyService.UpgradeWasCompleted -= UpdatePrice;
+            _worldData.LootData.Changed -= UpdatePrice;
+        }
+
+        
         private void UpdatePrice()
         {
             _upgradePrice = _difficultyService.GetUpgradePrice();

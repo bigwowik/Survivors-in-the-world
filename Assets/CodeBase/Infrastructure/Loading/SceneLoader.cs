@@ -9,7 +9,6 @@ namespace CodeBase.Infrastructure.Loading
     {
         private readonly ICoroutineRunner _coroutineRunner;
 
-        
         public SceneLoader(ICoroutineRunner coroutineRunner) => 
             _coroutineRunner = coroutineRunner;
 
@@ -21,12 +20,12 @@ namespace CodeBase.Infrastructure.Loading
         {
             Debug.Log($"[SceneLoader] Start LoadEnemies Scene: {nextScene}");
             
-            if (SceneManager.GetActiveScene().name == nextScene)
-            {
-                Debug.Log($"[SceneLoader] Try to start Scene that is nextScene: {nextScene}");
-                onLoaded?.Invoke();
-                yield break;
-            }
+            // if (SceneManager.GetActiveScene().name == nextScene)
+            // {
+            //     Debug.Log($"[SceneLoader] Try to start Scene that is nextScene: {nextScene}");
+            //     onLoaded?.Invoke();
+            //     yield break;
+            // }
             
             AsyncOperation waitLoadingScene = SceneManager.LoadSceneAsync(nextScene);
 

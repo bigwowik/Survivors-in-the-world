@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using CodeBase.Infrastructure.Inputs;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
 

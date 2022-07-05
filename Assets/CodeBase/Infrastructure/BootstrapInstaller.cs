@@ -1,11 +1,7 @@
-﻿using CodeBase.Infrastructure.Difficulty;
-using CodeBase.Infrastructure.Factory;
+﻿using CodeBase.Infrastructure.Inputs;
 using CodeBase.Infrastructure.Loading;
 using CodeBase.Infrastructure.Restart;
 using CodeBase.Infrastructure.States;
-using CodeBase.Infrastructure.Upgrades;
-using CodeBase.Logic.Loot;
-using CodeBase.StaticData;
 using Zenject;
 
 namespace CodeBase.Infrastructure
@@ -16,54 +12,11 @@ namespace CodeBase.Infrastructure
         {
             BindGame();
             BindGameStateMachine();
+            
             BindCoroutineRunner();
             BindInputService();
             BindSceneLoader();
-            BindEnemyFactory();
-            BindStaticDataService();
-            BindWorldData();
-            BindDifficultyService();
-            BindUpdateService();
             BindRestartService();
-        }
-
-        private void BindRestartService()
-        {
-            Container
-                .Bind<IRestartService>()
-                .To<RestartService>()
-                .AsSingle();
-        }
-
-        private void BindUpdateService()
-        {
-            Container
-                .Bind<IUpgradesService>()
-                .To<UpgradesService>()
-                .AsSingle();
-        }
-
-        private void BindWorldData()
-        {
-            Container
-                .Bind<WorldData>()
-                .AsSingle();
-        }
-
-        private void BindStaticDataService()
-        {
-            Container
-                .Bind<IStaticDataService>()
-                .To<StaticDataService>()
-                .AsSingle();
-        }
-
-        private void BindCoroutineRunner()
-        {
-            Container
-                .Bind<ICoroutineRunner>()
-                .FromInstance(this)
-                .AsSingle();
         }
 
         private void BindGame()
@@ -81,21 +34,6 @@ namespace CodeBase.Infrastructure
                 .AsSingle();
         }
 
-        private void BindSceneLoader()
-        {
-            Container
-                .Bind<SceneLoader>()
-                .AsSingle();
-        }
-
-        private void BindEnemyFactory()
-        {
-            Container
-                .Bind<IGameFactory>()
-                .To<GameFactory>()
-                .AsSingle();
-        }
-
         private void BindInputService()
         {
             Container
@@ -103,16 +41,28 @@ namespace CodeBase.Infrastructure
                 .To<UnityInputService>()
                 .AsSingle();
         }
-        
-        private void BindDifficultyService()
+
+        private void BindRestartService()
         {
             Container
-                .Bind<IDifficultyService>()
-                .To<DifficultyService>()
+                .Bind<IRestartService>()
+                .To<RestartService>()
                 .AsSingle();
-
         }
-        
-        
+
+        private void BindCoroutineRunner()
+        {
+            Container
+                .Bind<ICoroutineRunner>()
+                .FromInstance(this)
+                .AsSingle();
+        }
+
+        private void BindSceneLoader()
+        {
+            Container
+                .Bind<SceneLoader>()
+                .AsSingle();
+        }
     }
 }
