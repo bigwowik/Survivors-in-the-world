@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace CodeBase.Infrastructure.States
 {
-    public class LoadLevelState : IState
+    public class LoadLevelState : IPayloadState<string>
     {
-        private const string SceneName = "Level1";
+        
 
         private readonly IGameStateMachine _gameStateMachine;
         private SceneLoader _sceneLoader;
@@ -15,9 +15,9 @@ namespace CodeBase.Infrastructure.States
             _gameStateMachine = gameStateMachine;
             _sceneLoader = sceneLoader;
         }
-        public void Enter()
+        public void Enter(string nextLevelName)
         {
-            _sceneLoader.Load(SceneName, OnLoaded);
+            _sceneLoader.Load(nextLevelName, OnLoaded);
         }
 
         public void Exit()

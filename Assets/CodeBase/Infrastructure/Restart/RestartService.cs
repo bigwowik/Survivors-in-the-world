@@ -1,4 +1,5 @@
 ﻿using CodeBase.Infrastructure.States;
+using UnityEngine.SceneManagement;
 
 namespace CodeBase.Infrastructure.Restart
 {
@@ -9,6 +10,6 @@ namespace CodeBase.Infrastructure.Restart
             _gameStateMachine = gameStateMachine;
 
         public void RestartGame() => 
-            _gameStateMachine.Enter<LoadLevelState>();
+            _gameStateMachine.Enter<LoadLevelState, string>(SceneManager.GetActiveScene().name);
     }
 }

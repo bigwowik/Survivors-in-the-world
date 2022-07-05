@@ -2,6 +2,8 @@
 {
     public class BootstrapState : IState
     {
+        private const string SceneName = "Level1";
+        
         private readonly IGameStateMachine _gameStateMachine;
 
         public BootstrapState(IGameStateMachine gameStateMachine)
@@ -10,7 +12,7 @@
         }
 
         public void Enter() => 
-            _gameStateMachine.Enter<LoadLevelState>();
+            _gameStateMachine.Enter<LoadLevelState, string>(SceneName);
 
         public void Exit()
         {
